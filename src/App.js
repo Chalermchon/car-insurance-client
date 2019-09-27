@@ -10,7 +10,7 @@ function App() {
         <div class="ui segments">
             <MenuButton/>
 
-            <Container fluid>
+            <Container fluid style={{marginTop: '50px'}}>
                 <Routing />
             </Container>
         </div>

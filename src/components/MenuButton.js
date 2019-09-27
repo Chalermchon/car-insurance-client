@@ -1,6 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { Menu, Icon, Dropdown, Responsive } from 'semantic-ui-react'
+import { Menu, Dropdown, Responsive } from 'semantic-ui-react'
 
 function MenuButton() {
     return (
