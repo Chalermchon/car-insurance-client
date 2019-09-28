@@ -1,0 +1,22 @@
+.lp{
+    padding-bottom: 100px !important;
+    padding-top: 15px !important;
+}
+.lp-tablet-card{
+    padding: 30px !important;
+}
+.lp-computer-card{ 
+    background-color: #f8f8f8 !important;
+    padding-top: 50px !important;
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+    padding-bottom: 0px !important;
+}
+.lp-computer-card-footer{ 
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+}
+
+.lte-menu-bar{
+    padding-top: 15px;
+}

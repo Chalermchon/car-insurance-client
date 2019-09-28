@@ -1,14 +1,14 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 
-import Home from '../pages/Home'
-import CarRegisterForm from '../pages/CarRegisterForm'
+import HomePage from '../pages/HomePage'
+import CarRegisterPage from '../pages/CarRegisterPage'
 
 export default () => {
     return (
         <Switch>
-            <Route exact path="/" component={Home}/>
-            <Route exact path="/car-information" component={CarRegisterForm}/>
+            <Route exact path="/" component={HomePage}/>
+            <Route exact path="/car-information" component={CarRegisterPage}/>
             {/* <Route component={NotFoundPage} /> */}
         </Switch>
     )

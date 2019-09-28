@@ -12,7 +12,7 @@ function InsuranceDetails(props) {
         }else{
             setSelectedType(props.insuranceType) 
         }
-    });
+    }, [selectedType, props.insuranceType]);
 
     const handleItemClick = (e, { name }) => setActiveItem(name)
 
