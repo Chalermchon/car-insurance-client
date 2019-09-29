@@ -6,33 +6,38 @@ import InsuranceDetails from './InsuranceDetails';
 function InsuranceTypeExploration() {
     const [activeItem, setActiveItem] = useState('1');
 
-    const handleItemClick = (e, { name }) => setActiveItem(name)
+    const handleItemClick = (e, { key }) => setActiveItem(key)
 
     return (
         <div className='lte-menu-bar'>
             <Menu pointing widths="5">
                 <Menu.Item
+                    key='1'
                     name='1'
                     active={activeItem === '1'}
                     onClick={handleItemClick}
                 />
                 <Menu.Item
+                    key='2'
                     name='2'
                     active={activeItem === '2'}
                     onClick={handleItemClick}
                 />
                 <Menu.Item
-                    name='3'
+                    key='3'
+                    name='2 plus'
                     active={activeItem === '3'}
                     onClick={handleItemClick}
                 />
                 <Menu.Item
-                    name='4'
+                    key='4'
+                    name='3'
                     active={activeItem === '4'}
                     onClick={handleItemClick}
                 />
                 <Menu.Item
-                    name='5'
+                    key='5'
+                    name='3 plus'
                     active={activeItem === '5'}
                     onClick={handleItemClick}
                 />
