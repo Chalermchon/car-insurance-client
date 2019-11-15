@@ -1,10 +1,10 @@
-import React from 'react'
-import { Form, Select, Responsive, Input } from 'semantic-ui-react'
+import React, { useState } from 'react'
+import { Form, Select, Input, Checkbox, Button } from 'semantic-ui-react'
 
-function BasicCarInformationForm({handleChange}) {
-    
+export default (props) => {    
+    const [value, setValue] = useState('1');
+
     const brandOptions = [
-        {key: '', text: '', value: ''},
         { key: '1', text: 'Toyata', value: 'Toyata' },
         { key: '2', text: 'Honda', value: 'Honda' },
         { key: '3', text: 'Nissan', value: 'Nissan' },
@@ -13,7 +13,6 @@ function BasicCarInformationForm({handleChange}) {
     ]
 
     const modelOptions = [
-        {key: '', text: '', value: ''},
         { key: '1', text: 'Accord', value: 'Accord' },
         { key: '2', text: 'Brio', value: 'Brio' },
         { key: '3', text: 'BR-V', value: 'BR-V' },
@@ -39,7 +38,6 @@ function BasicCarInformationForm({handleChange}) {
     ]
 
     const modelDetailOptions = [
-        {key: '', text: '', value: ''},
         { key: '1', text: '2.0 E i-VTEC 4Doors', value: 'three' },
         { key: '2', text: '2.0 EL i-VTEC 4Doors', value: 'two' },
         { key: '3', text: '2.0 Hybrid i-VTEC 4Doors', value: 'one' },
@@ -48,7 +46,6 @@ function BasicCarInformationForm({handleChange}) {
     ]
     
     const yearOptions = [
-        {key: '', text: '', value: ''},
         { key: '1', text: '2019', value: 'three' },
         { key: '2', text: '2018', value: 'two' },
         { key: '3', text: '2017', value: 'one' },
@@ -62,151 +59,104 @@ function BasicCarInformationForm({handleChange}) {
         { key: '3', text: 'Three', value: 'three' },
     ]
 
-
     return (
         <div>
-            <Responsive {...Responsive.onlyMobile}>
-                <Form className='cr-form-mobi' size='mini'>
-                    <Form.Group widths='4'>
-                        <Form.Field
-                            control={Select}
-                            options={brandOptions}
-                            label='ยี่ห้อ'
-                            fluid
-                        />
-                        <Form.Field
-                            control={Select}
-                            options={modelOptions}
-                            label='รุ่น'
-                            fluid
-                        />
-                        <Form.Field
-                            control={Select}
-                            options={modelDetailOptions}
-                            label='รายละเอียดรุ่น'
-                            fluid
-                        />
-                        <Form.Field
-                            control={Select}
-                            options={yearOptions}
-                            label='ปี่ที่ผลิต'
-                            fluid
-                        />
-                    </Form.Group>
-                    <Form.Group widths='2'>
-                        <Form.Field
-                            control={Input}
-                            // options={genderOptions}
-                            label='หมายเลขตัวถัง'
-                            fluid
-                        />
-                        <Form.Field
-                            control={Input}
-                            // options={genderOptions}
-                            label='หมายเลขตัวเครื่อง'
-                            fluid
-                        />
-                    </Form.Group>
-                </Form>
-            </Responsive>
+            <Form className='cr-form-comp' size='large' >
+                <Form.Group widths='2'>
+                    <Form.Select
+                        name='brand'
+                        // onChange={(e, { name, value }) => handleChange(e, {name, value})}
+                        options={brandOptions}
+                        label='ยี่ห้อ'
+                        fluid
+                    />
+                    
+                    <Form.Select
+                        name='model'
+                        // onChange={(e, { name, value }) => handleChange(e, {name, value})}
+                        options={modelOptions}
+                        label='รุ่น'
+                        fluid
+                    />
+                </Form.Group>
+                <Form.Group widths='2'> 
+                    <Form.Select
+                        name='yearOfMNF'
+                        // onChange={(e, { name, value }) => handleChange(e, {name, value})}
+                        options={yearOptions}
+                        label='ปี่ที่ผลิต'
+                        fluid
+                    />
+                    <Form.Select
+                        name='detailModel'
+                        // onChange={(e, { name, value }) => handleChange(e, {name, value})}
+                        options={modelDetailOptions}
+                        label='รายละเอียดรุ่น'
+                        fluid
+                    />
 
-            <Responsive {...Responsive.onlyTablet}>
-                <Form className='cr-form-tabl' size='small'>
-                    <Form.Group widths='4'>
-                        <Form.Field
-                            control={Select}
-                            options={brandOptions}
-                            label='ยี่ห้อ'
-                            fluid
+                </Form.Group>
+                <br/>
+                <Form.Group widths='7'>
+                    <Form.Field>
+                        <b>เลือกชนิดประกัน</b>
+                    </Form.Field>
+                    <Form.Field>
+                        <Checkbox
+                            radio
+                            label='ประเภท 1'
+                            name='checkboxRadioGroup'
+                            value='1'
+                            checked={value === '1'}
+                            onChange={() => setValue('1')}
                         />
-                        <Form.Field
-                            control={Select}
-                            options={modelOptions}
-                            label='รุ่น'
-                            fluid
+                    </Form.Field>
+                    <Form.Field>
+                        <Checkbox
+                            radio
+                            label='ประเภท 2'
+                            name='checkboxRadioGroup'
+                            value='2'
+                            checked={value === '2'}
+                            onChange={() => setValue('2')}
                         />
-                        <Form.Field
-                            control={Select}
-                            options={modelDetailOptions}
-                            label='รายละเอียดรุ่น'
-                            fluid
+                    </Form.Field>
+                    <Form.Field>
+                        <Checkbox
+                            radio
+                            label='ประเภท 2+'
+                            name='checkboxRadioGroup'
+                            value='2p'
+                            checked={value === '2p'}
+                            onChange={() => setValue('2p')}
                         />
-                        <Form.Field
-                            control={Select}
-                            options={yearOptions}
-                            label='ปี่ที่ผลิต'
-                            fluid
+                    </Form.Field>
+                    <Form.Field>
+                        <Checkbox
+                            radio
+                            label='ประเภท 3'
+                            name='checkboxRadioGroup'
+                            value='3'
+                            checked={value === '3'}
+                            onChange={() => setValue('3')}
                         />
-                    </Form.Group>
-                    <Form.Group widths='2'>
-                        <Form.Field
-                            control={Input}
-                            // options={genderOptions}
-                            label='หมายเลขตัวถัง'
-                            fluid
+                    </Form.Field>
+                    <Form.Field>
+                        <Checkbox
+                            radio
+                            label='ประเภท 3+'
+                            name='checkboxRadioGroup'
+                            value='3p'
+                            checked={value === '3p'}
+                            onChange={() => setValue('3p')}
                         />
-                        <Form.Field
-                            control={Input}
-                            // options={genderOptions}
-                            label='หมายเลขตัวเครื่อง'
-                            fluid
-                        />
-                    </Form.Group>
-                </Form>
-            </Responsive>
-
-            <Responsive {...Responsive.onlyComputer}>
-                <Form className='cr-form-comp' size='large' >
-                    <Form.Group widths='4'>
-                        <Form.Select
-                            name='brand'
-                            onChange={(e, { name, value }) => handleChange(e, {name, value})}
-                            options={brandOptions}
-                            label='ยี่ห้อ'
-                            fluid
-                        />
-                        
-                        <Form.Select
-                            name='model'
-                            onChange={(e, { name, value }) => handleChange(e, {name, value})}
-                            options={modelOptions}
-                            label='รุ่น'
-                            fluid
-                        />
-                        <Form.Select
-                            name='detailModel'
-                            onChange={(e, { name, value }) => handleChange(e, {name, value})}
-                            options={modelDetailOptions}
-                            label='รายละเอียดรุ่น'
-                            fluid
-                        />
-                        <Form.Select
-                            name='yearOfMNF'
-                            onChange={(e, { name, value }) => handleChange(e, {name, value})}
-                            options={yearOptions}
-                            label='ปี่ที่ผลิต'
-                            fluid
-                        />
-                    </Form.Group>
-                    <Form.Group widths='2'>
-                        <Form.Input
-                            name='vinNumber'
-                            onChange={(e, { name, value }) => handleChange(e, {name, value})}
-                            label='หมายเลขตัวถัง'
-                            fluid
-                        />
-                        <Form.Input
-                            name='engNumber'
-                            onChange={(e, { name, value }) => handleChange(e, {name, value})}
-                            label='หมายเลขตัวเครื่อง'
-                            fluid
-                        />
-                    </Form.Group>
-                </Form>
-
-            </Responsive>
+                    </Form.Field>
+                    <Form.Field>
+                        <Button color='teal'onClick={() => {props.setShowCardStatus()}}>สำรวจราคา</Button>
+                    </Form.Field>
+                </Form.Group>
+            </Form>
         </div>
-
     )
 }
-export default BasicCarInformationForm
+

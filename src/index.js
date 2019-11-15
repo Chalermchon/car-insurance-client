@@ -7,7 +7,7 @@ import  BrowserRouter  from 'react-router-dom/BrowserRouter'
 
 const AppWithRouter = () => (
     <BrowserRouter>
-      <App />
+      <App/>
     </BrowserRouter>
   )
   

@@ -21,7 +21,7 @@ function PersonalInformationForm() {
 
     return (
         <div>
-            <Responsive {...Responsive.onlyMobile}>
+            {/* <Responsive {...Responsive.onlyMobile}>
                 <Form className='cr-form-mobi' size='mini'>
 
                 </Form>
@@ -31,7 +31,7 @@ function PersonalInformationForm() {
                 <Form className='cr-form-tabl' size='small'>
 
                 </Form>
-            </Responsive>
+            </Responsive> */}
 
             <Responsive {...Responsive.onlyComputer}>
                 <Form className='cr-form-comp' size='large'>
