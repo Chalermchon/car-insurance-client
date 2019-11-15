@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { Card, Icon, Table, Header, Responsive, Button } from 'semantic-ui-react'
 
 const goToAdvanceFromPage = (e) => {
-    window.location = '/'
+    window.location = '/advance-car-form'
 }
 
 const aCard = (type, fund, fundFlood, firstDamageRate, pleace, socondDamageRate, price) =>

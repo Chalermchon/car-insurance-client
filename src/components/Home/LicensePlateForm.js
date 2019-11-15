@@ -7,7 +7,7 @@ function LicensePlateForm() {
     }
     return (
         <div className='lp'>
-            <Responsive {...Responsive.onlyComputer}>
+            {/* <Responsive {...Responsive.onlyComputer}> */}
                 <Card centered fluid link raised className='lp-computer-card'>
                     <Card.Content>
                         <Form size="massive" unstackable>
@@ -27,7 +27,7 @@ function LicensePlateForm() {
                         </Button>
                     </Card.Content>
                 </Card>
-            </Responsive>
+            {/* </Responsive> */}
         </div>
     )
 }

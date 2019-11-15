@@ -1,14 +1,9 @@
 import React from 'react'
-import {
-    Container,
-    Dropdown,
-    Image,
-    Menu,
- } from 'semantic-ui-react'
+import { Container, Dropdown, Image, Menu } from 'semantic-ui-react'
 
 function MenuButton() {
-    const goToForAgentPage = (e) => {
-        window.location = 'agent-login'
+    const goToForAgentPage = () => {
+        window.location = '/agent-login'
     }
     const goToIndex = () => {
         window.location = '/'

@@ -29,7 +29,7 @@ function CarRegisterPage() {
 
     return (
         <div>
-            <div style={{backgroundColor: "#E5E8E8", margin: "80px", paddingTop: "20px"}}>
+            <div style={{backgroundColor: "#F4F6F6", margin: "80px", paddingTop: "20px"}}>
                 <Grid padded centered>
                     {/* <div> */}
                     <Grid.Row>
