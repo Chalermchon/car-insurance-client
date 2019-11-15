@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Grid, Transition } from 'semantic-ui-react'
 
-import './CarRegisterPage.css'
+import '../css/CarRegisterPage.css'
 
 import Label from '../components/util/Label'
 import BasicCarInformationForm from '../components/CarRegister/BasicCarInformationForm'

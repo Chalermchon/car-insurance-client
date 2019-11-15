@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid } from 'semantic-ui-react'
 
-import './HomePage.css'
+import '../css/HomePage.css'
 
 import Label from '../components/util/Label'
 import LicensePlateForm from '../components/Home/LicensePlateForm'
