@@ -11,8 +11,8 @@ export default () => {
         <Switch>
             <Route exact path="/" component={HomePage}/>
             <Route exact path="/car-information" component={CarRegisterPage}/>
-            <Route component="/advance-car-form" component={advanceCarFormPage}/>
-            <Route component="/agent-login" component={AgentLoginPage}/>
+            <Route exact path="/advance-car-form" component={advanceCarFormPage}/>
+            <Route exact path="/agent-login" component={AgentLoginPage}/>
         </Switch>
     )
 }
