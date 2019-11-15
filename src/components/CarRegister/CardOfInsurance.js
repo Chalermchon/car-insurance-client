@@ -6,6 +6,9 @@ import { Card, Icon, Table, Header, Responsive, Button } from 'semantic-ui-react
 const goToAdvanceFromPage = (e) => {
     window.location = '/advance-car-form'
 }
+const gotoInsuranceDetail = (e) => {
+    window.location = '/'
+}
 
 const aCard = (type, fund, fundFlood, firstDamageRate, pleace, socondDamageRate, price) =>
     <Card>
@@ -69,13 +72,14 @@ const aCard = (type, fund, fundFlood, firstDamageRate, pleace, socondDamageRate,
             </h2>
         </Card.Content>
         <Card.Content extra textAlign='center'>
-            {/* <Link href="/advance-car-register">*/}
-                <Button fluid icon labelPosition='right' color='teal' onClick={goToAdvanceFromPage}> 
-                    <Icon name='dollar'/>
+            <Button.Group attached='bottom'>
+                <Button  icon size='large'  color='yellow' onClick={gotoInsuranceDetail}> 
+                    รายละเอียด
+                </Button>      
+                <Button  icon size='large'  color='teal' onClick={goToAdvanceFromPage}> 
                     ซื้อประกันนี้
-                </Button>
-            {/* </Link> */}
-
+                </Button>                 
+            </Button.Group>
         </Card.Content>
     </Card>
 
