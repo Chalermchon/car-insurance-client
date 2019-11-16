@@ -7,7 +7,7 @@ export default () => {
             <Grid textAlign='center' style={{ height: '50vh' }} verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 650 }}>
                     <Header as='h2'  textAlign='center'>
-                        Log-in for agent
+                        FOR AGENT
                     </Header>
                     <Form size='large'>
                         <Segment stacked>
@@ -21,7 +21,7 @@ export default () => {
                         />
                         {/* <Link href="/for-agent"> */}
                             <Button fluid size='large'>
-                                Login
+                                LOGIN
                             </Button>
                         {/* </Link> */}
 

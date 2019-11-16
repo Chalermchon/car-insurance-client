@@ -46,7 +46,7 @@ function InsuranceTypeExploration() {
             </Menu>
 
             <Segment>
-                <InsuranceDetails insuranceType={activeItem} />
+                <InsuranceDetails insuranceType={activeItem}/>
             </Segment>
         </div>
     )

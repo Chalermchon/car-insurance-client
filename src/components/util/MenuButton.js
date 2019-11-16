@@ -10,9 +10,9 @@ function MenuButton() {
     }
     
     return (
-        <div>
-            <Menu fixed='top' inverted>
-                <Container style={{ margin: '1em' }} >
+        <div style={{}}>
+            <Menu fixed='top' inverted color="teal">
+                <Container style={{ margin: '1em'}} >
                     <Menu.Item as='a' header onClick={goToIndex}>
                         {/* <Image size='mini' src='/logo.png' style={{ margin: '1em' }} /> */}
                         Asia insurance

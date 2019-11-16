@@ -11,10 +11,11 @@ function App() {
 
         // </div>
         <div>
-            <MenuButton/>
-            <Container fluid style={{marginTop: '100px'}}>
-                <Routing/>
-            </Container>
+                <MenuButton/>
+                <Container fluid style={{marginTop: '100px', backgroundColor: ""}}>
+                    <Routing/>
+                </Container>
+
         </div>
     )
 }

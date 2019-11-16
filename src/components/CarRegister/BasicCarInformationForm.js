@@ -3,6 +3,10 @@ import { Form, Select, Input, Checkbox, Button } from 'semantic-ui-react'
 
 export default (props) => {    
     const [value, setValue] = useState('1');
+    const [visible1, setvisible1] = useState(true);
+    const [visible2, setvisible2] = useState(true);
+    const [visible3, setvisible3] = useState(true);
+    const [visible4, setvisible4] = useState(true);
 
     const brandOptions = [
         { key: '1', text: 'Toyata', value: 'Toyata' },
@@ -69,6 +73,7 @@ export default (props) => {
                         options={brandOptions}
                         label='ยี่ห้อ'
                         fluid
+                        onChange={() => setvisible1(false)}
                     />
                     
                     <Form.Select
@@ -77,6 +82,8 @@ export default (props) => {
                         options={modelOptions}
                         label='รุ่น'
                         fluid
+                        disabled={visible1}
+                        onChange={() => setvisible2(false)}
                     />
                 </Form.Group>
                 <Form.Group widths='2'> 
@@ -86,6 +93,8 @@ export default (props) => {
                         options={yearOptions}
                         label='ปี่ที่ผลิต'
                         fluid
+                        disabled={visible2}
+                        onChange={() => setvisible3(false)}
                     />
                     <Form.Select
                         name='detailModel'
@@ -93,6 +102,7 @@ export default (props) => {
                         options={modelDetailOptions}
                         label='รายละเอียดรุ่น'
                         fluid
+                        disabled={visible3}
                     />
 
                 </Form.Group>

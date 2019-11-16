@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Form, Card, Button, Icon, Responsive } from 'semantic-ui-react'
+import axios from 'axios'
+
 
 function LicensePlateForm() {
     const nextToCarRegisterFormPage = (e) => {
         window.location = 'car-information'
     }
+
+
+
     return (
         <div className='lp'>
             {/* <Responsive {...Responsive.onlyComputer}> */}
