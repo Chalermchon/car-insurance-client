@@ -7,6 +7,9 @@ function LicensePlateForm() {
     const nextToCarRegisterFormPage = (e) => {
         window.location = 'car-information'
     }
+    const nextToTestPage = (e) => {
+        window.location = 'test-page'
+    }
 
 
 

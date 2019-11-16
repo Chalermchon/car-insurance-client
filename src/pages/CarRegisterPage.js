@@ -18,13 +18,30 @@ function CarRegisterPage() {
         vinNumber: '',
         engNumber: ''
     })
+    const [personalInfo, setPersonalInfo] = useState({
+        namePrefix: '',
+        firstName: '',
+        lastName: '',
+        identNumber: '',
+        birthDate: '',
+        identImg: '',
+        email: '',
+        phone: '',
+        career: '',
+        houseNumber: '',
+        tambon: '',
+        road: '',
+        changwat: '',
+        amphoe: '',
+        postalCode: ''
+    })
 
     useEffect(() => {
         console.log('carInfo', carInfo);
     }, [carInfo])
 
-    const handleChange = ((e, {name, value})=>{
-        setCarInfo({...carInfo,[name]: value})
+    const handleChange = ((e, { name, value }) => {
+        setCarInfo({ ...carInfo, [name]: value })
     })
 
     return (
@@ -46,7 +63,15 @@ function CarRegisterPage() {
             <div style={{margin: "40px"}}></div>
             {/* <Grid.Row>
                 <Grid.Column width="14">
-                    <Label text='ข้อมูลส่วนตัวของคุณ' align='left'/>
+                    <Label text='ข้อมูลรถของคุณ' align='left' />
+                    <hr />
+                    <BasicCarInformationForm handleChange={handleChange} />
+                </Grid.Column>
+            </Grid.Row>
+
+            <Grid.Row>
+                <Grid.Column width="14">
+                    <Label text='ข้อมูลส่วนตัวของคุณ' align='left' />
                     <hr />
                     <PersonalInformationForm />
                 </Grid.Column>
