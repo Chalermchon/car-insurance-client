@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Grid } from 'semantic-ui-react'
 import axios from 'axios'
 
@@ -8,19 +8,7 @@ import Label from '../components/util/Label'
 import LicensePlateForm from '../components/Home/LicensePlateForm'
 import InsuranceTypeExploration from '../components/Home/InsuranceTypeExploration'
 
-function HomePage() {
-    const [data, setData] = useState({});
-
-
-    useEffect(() => {
-        console.log("adsf");
-
-        fetch(`/api/insurance-types`)
-            .then((res) => {
-                console.log(res);
-                
-            })
-    });
+export default function HomePage() {
 
     return (
         <Grid padded centered>
@@ -30,7 +18,6 @@ function HomePage() {
                     <LicensePlateForm />
                 </Grid.Column>
             </Grid.Row>
-
             <Grid.Row>
                 <Grid.Column width="14">
                     <Label text="สำรวจกรมธรรม์แต่ละประเภท" align="center" />
@@ -40,5 +27,3 @@ function HomePage() {
         </Grid>
     )
 }
-
-export default HomePage
