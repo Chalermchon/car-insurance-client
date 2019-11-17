@@ -2,7 +2,6 @@
   "name": "insurance-web-client",
   "version": "0.1.0",
   "private": false,
-  "proxy": "http://158.108.135.73:3333",
   "dependencies": {
     "axios": "^0.19.0",
     "react": "^16.9.0",
