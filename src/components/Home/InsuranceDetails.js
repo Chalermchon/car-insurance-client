@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Menu, Segment, Grid, Table, Header, Icon } from 'semantic-ui-react'
+import { Menu, Grid } from 'semantic-ui-react'
 
 import TypeOneTable from './InsuranceTable/TypeOneTable'
 import TypeTwoTable from './InsuranceTable/TypeTwoTable'
@@ -44,7 +44,6 @@ function InsuranceDetails(props) {
         </Grid.Column>
 
         <Grid.Column stretched width={13}>
-          {/* <StandardDetailTable/> */}
           <TypeTwoTable kind={activeItem2}/>
         </Grid.Column>
       </Grid >
