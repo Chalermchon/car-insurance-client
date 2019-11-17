@@ -1,41 +1,69 @@
-import React, { useEffect } from 'react'
-import { Form, Card, Button, Icon, Responsive } from 'semantic-ui-react'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
+import { Form, Card, Button, Icon } from 'semantic-ui-react'
+
+import { setCarLicensePlate } from "../../redux/action";
 
 function LicensePlateForm() {
+    const [alphabet, setAlphabet] = useState('');
+    const [number, setNumber] = useState('');
+    const [province, setProvince] = useState('');
+    const [clicked, setClicked] = useState(false)
+
+    const dispatch = useDispatch();
+    const history = useHistory();
+
     const nextToCarRegisterFormPage = (e) => {
-        window.location = 'car-information'
+        setClicked(true)
+        if (alphabet !== '' && number !== '', province !== '') {
+            dispatch(setCarLicensePlate({
+                alphabet: alphabet,
+                number: number,
+                province: province
+            }));
+            history.push("/car-information");
+        }
     }
     const nextToTestPage = (e) => {
         window.location = 'test-page'
     }
 
 
-
     return (
         <div className='lp'>
-            {/* <Responsive {...Responsive.onlyComputer}> */}
-                <Card centered fluid link raised className='lp-computer-card'>
-                    <Card.Content>
-                        <Form size="massive" unstackable>
-                            <Form.Group >
-                                <Form.Input fluid width="6" style={{ textAlign: 'center' }} />
-                                <Form.Input fluid width="10" />
-                            </Form.Group>
-                            <Form.Input fluid />
-                        </Form>
-                    </Card.Content>
-                    <Card.Content extra textAlign="right" className='lp-computer-card-footer' >
-                        <Button animated color='teal' onClick={nextToCarRegisterFormPage}>
-                            <Button.Content visible>Next</Button.Content>
-                            <Button.Content hidden>
-                                <Icon name='arrow right'/>
-                            </Button.Content>
-                        </Button>
-                    </Card.Content>
-                </Card>
-            {/* </Responsive> */}
+            <Card centered fluid link raised className='lp-computer-card'>
+                <Card.Content>
+                    <Form size="massive" unstackable >
+                        <Form.Group >
+                            <Form.Input fluid width="6"
+                                name='alphabet' placeholder='กด'
+                                onChange={(e) => setAlphabet(e.target.value)}
+                                error={clicked && !alphabet}
+                            />
+                            <Form.Input fluid width="10"
+                                name='number' placeholder='1234'
+                                onChange={(e) => setNumber(e.target.value)}
+                                error={clicked && !number}
+                            />
+                        </Form.Group>
+                        <Form.Input fluid
+                            name='province' placeholder='กรุงเทพมหานคร'
+                            onChange={(e) => setProvince(e.target.value)}
+                            error={clicked && !province}
+                        />
+                    </Form>
+                </Card.Content>
+                <Card.Content extra textAlign="right" className='lp-computer-card-footer' >
+                    <Button animated color='teal' onClick={nextToCarRegisterFormPage} role="submit">
+                        <Button.Content visible>Next</Button.Content>
+                        <Button.Content hidden>
+                            <Icon name='arrow right' />
+                        </Button.Content>
+                    </Button>
+                </Card.Content>
+            </Card>
         </div>
     )
 }
