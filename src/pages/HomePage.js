@@ -10,16 +10,6 @@ import InsuranceTypeExploration from '../components/Home/InsuranceTypeExploratio
 
 export default function HomePage() {
 
-    // useEffect(() => {
-    //     console.log("adsf");
-
-    //     fetch(`/api/insurance-types`)
-    //         .then((res) => {
-    //             console.log(res);
-                
-    //         })
-    // });
-
     return (
         <Grid padded centered>
             <Grid.Row>

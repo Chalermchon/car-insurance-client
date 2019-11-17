@@ -2,6 +2,10 @@ import React from 'react'
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 
 export default () => {
+    const goToAgentPage = () => {
+        window.location = '/agent-page'
+    }
+
     return (
         <div>
             <Grid textAlign='center' style={{ height: '50vh' }} verticalAlign='middle'>
@@ -19,12 +23,9 @@ export default () => {
                             placeholder='Password'
                             type='password'
                         />
-                        {/* <Link href="/for-agent"> */}
-                            <Button fluid size='large'>
+                            <Button fluid size='large' color="yellow" onClick={goToAgentPage}>
                                 LOGIN
                             </Button>
-                        {/* </Link> */}
-
                         </Segment>
                     </Form>
                 </Grid.Column>

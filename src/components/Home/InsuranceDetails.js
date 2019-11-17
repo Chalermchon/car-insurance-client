@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Menu, Segment, Grid, Table, Header, Icon } from 'semantic-ui-react'
 
-import StandardDetailTable from './InsuranceTable/StandardDetailTable'
 import TypeOneTable from './InsuranceTable/TypeOneTable'
 import TypeTwoTable from './InsuranceTable/TypeTwoTable'
 import TypeTwoPlusTable from './InsuranceTable/TypeTwoPlusTable'

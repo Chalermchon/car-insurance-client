@@ -1,19 +1,21 @@
 import React, { useState } from 'react'
-import { Menu, Segment, Grid } from 'semantic-ui-react'
+import { Menu, Segment, Transition } from 'semantic-ui-react'
 
 import InsuranceDetails from './InsuranceDetails';
 
 export default function InsuranceTypeExploration() {
-    const [activeItem, setActiveItem] = useState('2');
+    const [activeItem, setActiveItem] = useState('');
+    const [visible, setVisible] = useState(false)
     // const [activeItem, setActiveItem] = useState(selectedType + '-1')
 
     const handleItemClick = (e, { name }) => {
         setActiveItem(name);
+        setVisible(true)
     }
 
     return (
         <div className='lte-menu-bar'>
-            <Menu pointing widths="5">
+            <Menu pointing widths="5" size="big">
                 <Menu.Item
                     key='1'
                     name='1'
@@ -45,9 +47,12 @@ export default function InsuranceTypeExploration() {
                     onClick={handleItemClick}
                 />
             </Menu>
-            <Segment>
-                <InsuranceDetails insuranceType={activeItem}/>
-            </Segment>
+            <Transition visible={visible} animation='scale' duration={500}>
+                <Segment>
+                    <InsuranceDetails insuranceType={activeItem}/>
+                </Segment>                
+            </Transition>
+
         </div>
     )
 }
