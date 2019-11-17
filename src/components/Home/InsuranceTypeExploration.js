@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Menu, Segment } from 'semantic-ui-react'
+import { Menu, Segment, Grid } from 'semantic-ui-react'
 
 import InsuranceDetails from './InsuranceDetails';
 
-function InsuranceTypeExploration() {
-    const [activeItem, setActiveItem] = useState('1');
+export default function InsuranceTypeExploration() {
+    const [activeItem, setActiveItem] = useState('2');
+    // const [activeItem, setActiveItem] = useState(selectedType + '-1')
 
     const handleItemClick = (e, { name }) => {
         setActiveItem(name);
@@ -44,7 +45,6 @@ function InsuranceTypeExploration() {
                     onClick={handleItemClick}
                 />
             </Menu>
-
             <Segment>
                 <InsuranceDetails insuranceType={activeItem}/>
             </Segment>
@@ -52,4 +52,3 @@ function InsuranceTypeExploration() {
     )
 }
 
-export default InsuranceTypeExploration

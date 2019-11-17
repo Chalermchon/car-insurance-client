@@ -5,6 +5,7 @@ import HomePage from '../pages/HomePage'
 import CarRegisterPage from '../pages/CarRegisterPage'
 import advanceCarFormPage from '../pages/AdvanceCarFormPage'
 import AgentLoginPage from '../pages/AgentLoginPage'
+import ContactUsPage from '../pages/ContactUsPage'
 
 export default () => {
     return (
@@ -13,6 +14,7 @@ export default () => {
             <Route exact path="/car-information" component={CarRegisterPage}/>
             <Route exact path="/advance-car-form" component={advanceCarFormPage}/>
             <Route exact path="/agent-login" component={AgentLoginPage}/>
+            <Route exact path="/contact-us" component={ContactUsPage}/>
         </Switch>
     )
 }
