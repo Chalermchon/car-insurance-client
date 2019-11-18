@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Dropdown, Menu } from 'semantic-ui-react'
+import { Container, Dropdown, Menu, Icon } from 'semantic-ui-react'
 
 function MenuButton() {
     const goToForAgentPage = () => {
