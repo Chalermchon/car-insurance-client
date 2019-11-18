@@ -1,17 +1,15 @@
 import React, { useState } from 'react'
-import { Menu, Segment, Transition } from 'semantic-ui-react'
+import { Menu, Segment } from 'semantic-ui-react'
 
 
 import InsuranceDetails from './InsuranceDetails';
 
 export default function InsuranceTypeExploration() {
-    const [activeItem, setActiveItem] = useState('');
-    const [visible, setVisible] = useState(false)
+    const [activeItem, setActiveItem] = useState('ประเภท 2 plus');
     // const [activeItem, setActiveItem] = useState(selectedType + '-1')
 
     const handleItemClick = (e, { name }) => {
         setActiveItem(name);
-        setVisible(true)
     }
 
     return (
@@ -19,41 +17,39 @@ export default function InsuranceTypeExploration() {
                 <Menu pointing widths="5" size="big">
                     <Menu.Item
                         key='1'
-                        name='1'
-                        active={activeItem === '1'}
+                        name='ประเภท 1'
+                        active={activeItem === 'ประเภท 1'}
                         onClick={handleItemClick}
                     />
                     <Menu.Item
                         key='2'
-                        name='2'
-                        active={activeItem === '2'}
+                        name='ประเภท 2'
+                        active={activeItem === 'ประเภท 2'}
                         onClick={handleItemClick}
                     />
                     <Menu.Item
                         key='3'
-                        name='2 plus'
-                        active={activeItem === '2 plus'}
+                        name='ประเภท 2 plus'
+                        active={activeItem === 'ประเภท 2 plus'}
                         onClick={handleItemClick}
                     />
                     <Menu.Item
                         key='4'
-                        name='3'
-                        active={activeItem === '3'}
+                        name='ประเภท 3'
+                        active={activeItem === 'ประเภท 3'}
                         onClick={handleItemClick}
                     />
                     <Menu.Item
                         key='5'
-                        name='3 plus'
-                        active={activeItem === '3 plus'}
+                        name='ประเภท 3 plus'
+                        active={activeItem === 'ประเภท 3 plus'}
                         onClick={handleItemClick}
                     />
                 </Menu>
 
-            <Transition visible={visible} animation='scale' duration={500}>
                 <Segment>
                     <InsuranceDetails insuranceType={activeItem} />
                 </Segment>
-            </Transition>
 
         </div>
     )

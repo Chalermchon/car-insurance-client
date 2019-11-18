@@ -43,7 +43,7 @@ export default function TypeThreeTable(props) {
                 </Table>
 
                 <Divider horizontal>
-                    <Header as='h4'><Icon name='dollar sign' />price rate</Header>
+                    <Header as='h4'><Icon name='money bill alternate outline' />price rate</Header>
                 </Divider>
 
                 {/* <ThreePlusRatePriceTable /> */}
@@ -77,12 +77,6 @@ export default function TypeThreeTable(props) {
                         <ThirdSection onePointOne="ผู้ขับขี่และผู้โดยสารในรถประกัน 100,000 " two="100,000" three="300,000" four="เก๋ง 7 / ปิคอัพ 4 / รถตู้ 4" />
                     </Table.Body>
                 </Table>
-
-                {/* <Divider horizontal>
-                    <Header as='h4'><Icon name='dollar sign' />price rate</Header>
-                </Divider> */}
-
-                {/* <ThreePlusRatePriceTable /> */}
 
                 <Message header='หมายเหตุ' list={best3Option} />
             </Segment>

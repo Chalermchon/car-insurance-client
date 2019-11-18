@@ -7,7 +7,7 @@ export default function AgentPage() {
 
     return (
         <div style={{ paddingRight: '5%', paddingLeft: '5%' }}>
-            <Grid divided='vertically' celled>
+            <Grid divided='vertically'>
                 <Grid.Row columns={2} textAlign="center">
                     <Grid.Column>
                         <Label color="olive" size="big">

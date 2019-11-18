@@ -12,7 +12,6 @@ function LicensePlateForm() {
 
     return (
         <div className='lp'>
-            {/* <Responsive {...Responsive.onlyComputer}> */}
                 <Card centered fluid link raised className='lp-computer-card'>
                     <Card.Content>
                         <Form size="massive" unstackable>
@@ -25,14 +24,13 @@ function LicensePlateForm() {
                     </Card.Content>
                     <Card.Content extra textAlign="right" className='lp-computer-card-footer' >
                         <Button animated color='teal' onClick={nextToCarRegisterFormPage}>
-                            <Button.Content visible>Next</Button.Content>
+                            <Button.Content visible>ถัดไป</Button.Content>
                             <Button.Content hidden>
                                 <Icon name='arrow right'/>
                             </Button.Content>
                         </Button>
                     </Card.Content>
                 </Card>
-            {/* </Responsive> */}
         </div>
     )
 }

@@ -31,7 +31,6 @@ function CarRegisterPage() {
         <div>
             <div style={{backgroundColor: "#F4F6F6", margin: "80px", paddingTop: "20px"}}>
                 <Grid padded centered>
-                    {/* <div> */}
                     <Grid.Row>
                         <Grid.Column width="14">
                             <Label text='ข้อมูลรถเบื้องต้นของคุณ' align='center'/>
@@ -39,7 +38,6 @@ function CarRegisterPage() {
                             <BasicCarInformationForm setShowCardStatus={() => setShowCardStatus(true)}/>
                         </Grid.Column>
                     </Grid.Row>
-                    {/* </div> */}
                 </Grid>
             </div>
         

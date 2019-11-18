@@ -38,7 +38,7 @@ export default function TypeThreePlueTable() {
                 </Table>
 
                 <Divider horizontal>
-                    <Header as='h4'><Icon name='dollar sign'/>price rate</Header>
+                    <Header as='h4'><Icon name='money bill alternate outline'/>price rate</Header>
                 </Divider>
 
                 <ThreePlusRatePriceTable/>

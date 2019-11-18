@@ -14,13 +14,13 @@ export default function HomePage() {
         <Grid padded centered>
             <Grid.Row>
                 <Grid.Column width="10">
-                    <Label text="กรอกป้ายทะเบียนรถของคุณ ที่นี่" align="center" />
+                    <Label text="กรอกป้ายทะเบียนรถของคุณที่นี่" align="center" />
                     <LicensePlateForm />
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row>
                 <Grid.Column width="14">
-                    <Label text="สำรวจกรมธรรม์แต่ละประเภท" align="center" />
+                    <Label text="รายละเอียดกรมธรรม์แต่ละประเภท" align="center" />
                     <InsuranceTypeExploration />
                 </Grid.Column>
             </Grid.Row>
