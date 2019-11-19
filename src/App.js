@@ -3,13 +3,16 @@ import { Container } from 'semantic-ui-react'
 
 import Routing from './routes'
 import MenuButton from './components/util/MenuButton'
+import MenuButtonForAgentPage from './components/util/MenuButtonForAgentPage'
 
-export default function App() {
+export default function App(props) {
+
     return (
         <div>
-            <MenuButton />
-            <Container fluid style={{ marginTop: '100px', backgroundColor: "" }}>
-                <Routing />
+            {/* <MenuButtonForAgentPage/> */}
+            <MenuButton/>
+            <Container fluid style={{ marginTop: '100px'}}>
+                <Routing/>
             </Container>
         </div>
     )

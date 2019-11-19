@@ -66,7 +66,7 @@ export default () => {
 
             <Transition animation='scale' duration={500}>
                 <Button animated color='teal' floated='right' onClick={() => { handleNextButton() }}>
-                    <Button.Content visible>ถัดไป</Button.Content>
+                    <Button.Content visible>ยืนยันการซื้อประกัน</Button.Content>
                     <Button.Content hidden>
                         <Icon name='arrow right' />
                     </Button.Content>
