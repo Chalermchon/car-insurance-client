@@ -16,6 +16,7 @@ export default (props) => {
                         // onChange={(e, { name, value }) => handleChange(e, { name, value })}
                         label='บ้านเลขที่'
                         width='4'
+                        placeholder='222/96'
                         fluid
                     />
                     <Form.Input
@@ -23,6 +24,7 @@ export default (props) => {
                         // onChange={(e, { name, value }) => handleChange(e, { name, value })}
                         label='แขวง / ตำบล'
                         width='6'
+                        placeholder='บางใหญ่'
                         fluid
                     />
                     <Form.Input
@@ -30,6 +32,7 @@ export default (props) => {
                         // onChange={(e, { name, value }) => handleChange(e, { name, value })}
                         label='ถนน'
                         width='6'
+                        placeholder='รัตนาธิเบศร์'
                         fluid
                     />
                 </Form.Group>
@@ -40,6 +43,7 @@ export default (props) => {
                         // options={genderOptions}
                         label='จังหวัด'
                         width='6'
+                        placeholder='นนทบุรี'
                         fluid
                     />
                     <Form.Select
@@ -48,6 +52,7 @@ export default (props) => {
                         // options={genderOptions}
                         label='อำเภอ'
                         width='5'
+                        placeholder='บางใหญ่'
                         fluid
                     />
                     <Form.Input
@@ -56,6 +61,7 @@ export default (props) => {
                         // options={genderOptions}
                         label='รหัสไปรษณีย์'
                         width='5'
+                        placeholder='11111'
                         fluid
                     />
                 </Form.Group>

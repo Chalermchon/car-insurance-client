@@ -90,14 +90,13 @@ function LicensePlateForm() {
     const [alphabet, setAlphabet] = useState('');
     const [number, setNumber] = useState('');
     const [province, setProvince] = useState('');
-    const [clicked, setClicked] = useState(false)
+    const [haveError, setHaveError] = useState(false)
 
     const dispatch = useDispatch();
     const history = useHistory();
 
     const nextToCarRegisterFormPage = (e) => {
-        setClicked(true)
-        if (alphabet !== '' && number !== '', province !== '') {
+        if (alphabet !== '' && number !== '' && province !== '') {
             dispatch(setCarLicensePlate({
                 alphabet: alphabet,
                 number: number,
@@ -105,11 +104,10 @@ function LicensePlateForm() {
             }));
             history.push("/car-information");
         }
+        else{
+            setHaveError(true)
+        }
     }
-    const nextToTestPage = (e) => {
-        window.location = 'test-page'
-    }
-
 
     return (
         <div className='lp'>
@@ -119,20 +117,20 @@ function LicensePlateForm() {
                         <Form.Group >
                             <Form.Input fluid width="6"
                                 name='alphabet' placeholder='กด'
-                                onChange={(e) => setAlphabet(e.target.value)}
-                                error={clicked && !alphabet}
+                                onChange={(e) => {setAlphabet(e.target.value); setHaveError(false)}}
+                                error={haveError && !alphabet}
                             />
-                            <Form.Input fluid width="10"
+                            <Form.Input fluid width="10" 
                                 name='number' placeholder='1234'
-                                onChange={(e) => setNumber(e.target.value)}
-                                error={clicked && !number}
+                                onChange={(e) => {setNumber(e.target.value); setHaveError(false)}}
+                                error={haveError && !number}
                             />
                         </Form.Group>
                         <Form.Select fluid
                             name='province' placeholder='กรุงเทพมหานคร'
                             options={provinces}
-                            onChange={(e, v) => setProvince(v.value)}
-                            error={clicked && !province}
+                            onChange={(e, v) => {setProvince(v.value); setHaveError(false)}}
+                            error={haveError && !province}
                         />
                     </Form>
                 </Card.Content>

@@ -72,6 +72,7 @@ export default (props) => {
                         onChange={(e, { value }) => setNamePrefix(value)}
                         options={genderOptions}
                         label='คำนำหน้าชื่อ'
+                        placeholder='นาย'
                         width='4'
                         fluid
                     />
@@ -81,6 +82,7 @@ export default (props) => {
                         onChange={(e, { value }) => setFirstName(value)}
                         label='ชื่อจริง'
                         width='6'
+                        placeholder='กฤษฎิ์ภวินท์'
                         fluid
                     />
                     <Form.Input
@@ -89,6 +91,7 @@ export default (props) => {
                         onChange={(e, { value }) => setLastName(value)}
                         label='นามสกุล'
                         width='6'
+                        placeholder='ชัยวงศ์'
                         fluid
                     />
 
@@ -100,13 +103,14 @@ export default (props) => {
                             type='text'
                             action
                             name='identNumber'
+                            placeholder='2244734981650'
                         >
                             <input  value={identNumber} onChange={(e) => setIdentNumber(e.target.value)}/>
                             <Select compact options={identNumberOption} defaultValue='nin' />
                         </Input>
                     </Form.Field>
                     <Form.Field width='6'>
-                        <label>วันเดือนปีเกิด</label>
+                        <label>วัน เดือน ปี เกิด</label>
                         <DateInput
                             name="birthDate"
                             value={birthDate}
@@ -117,6 +121,8 @@ export default (props) => {
                             closable
                             animation='none'
                             dateFormat='YYYY-MM-DD'
+                            placeholder='1999-08-12'
+                            maxDate={((new Date()).getFullYear()-18) + '-' + ((new Date()).getMonth()) + '-' + ((new Date()).getDate() + 1)}
                         />
                     </Form.Field>
                 </Form.Group>
@@ -124,7 +130,7 @@ export default (props) => {
                     <Form.Field width='4'>
                         <label>รูปบัตรประชาชน</label>
                         <Button
-                            content={img ? (img.name.length > 7 ? img.name.substr(0, 6).concat('...') : img.name) : 'อัพโหลด'}
+                            content={img ? (img.name.length > 7 ? img.name.substr(0, 6).concat('...') : img.name) : 'อัพโหลดรูปภาพ'}
                             labelPosition="right"
                             icon="file"
                             style={{
@@ -149,6 +155,7 @@ export default (props) => {
                             value={email}
                             onChange={(e, { value }) => setEmail(value)}
                             label='อีเมล'
+                            placeholder='kitpavin@gmail.com'
                             fluid
                         />
 
@@ -159,6 +166,7 @@ export default (props) => {
                             value={phone}
                             onChange={(e, { value }) => setPhone(value)}
                             label='เบอร์โทรศัพท์'
+                            placeholder='08458XXXXXX'
                             fluid
                         />
                     </Form.Field>

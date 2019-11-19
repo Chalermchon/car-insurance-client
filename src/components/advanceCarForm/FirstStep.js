@@ -53,6 +53,7 @@ export default ({ handleNextToStepTwo }) => {
                             width='16'
                             textAlign='center'
                             dateFormat='YYYY-MM-DD'
+                            placeholder='1999-08-12'
                             minDate={((new Date()).getFullYear()) + '-' + ((new Date()).getMonth() + 1) + '-' + ((new Date()).getDate() + 1)}
                         />
                     </Form.Field>
