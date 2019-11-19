@@ -125,7 +125,7 @@ export default (props) => {
                         </Input>
                     </Form.Field>
                     <Form.Field width='6'>
-                        <label>วันเดือนปีเกิด</label>
+                        <label>วัน เดือน ปี เกิด</label>
                         <DateInput
                             name="birthDate"
                             value={birthDate}
@@ -136,6 +136,7 @@ export default (props) => {
                             closable
                             animation='none'
                             dateFormat='YYYY-MM-DD'
+                            maxDate={((new Date()).getFullYear()-18) + '-' + ((new Date()).getMonth()) + '-' + ((new Date()).getDate() + 1)}
                         />
                     </Form.Field>
                 </Form.Group>
@@ -143,7 +144,7 @@ export default (props) => {
                     <Form.Field width='4'>
                         <label>รูปบัตรประชาชน</label>
                         <Button
-                            content={img ? (img.name.length > 7 ? img.name.substr(0, 6).concat('...') : img.name) : 'อัพโหลด'}
+                            content={img ? (img.name.length > 7 ? img.name.substr(0, 6).concat('...') : img.name) : 'อัพโหลดรูปภาพ'}
                             labelPosition="right"
                             icon="file"
                             style={{

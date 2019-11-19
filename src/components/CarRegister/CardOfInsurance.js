@@ -93,7 +93,7 @@ export default (props) => {
                         </Card.Content>
                         <Card.Content extra textAlign='center'>
                             <Button.Group attached='bottom'>
-                                <Button icon size='large' color='yellow' onClick={gotoInsuranceDetail}>
+                                <Button icon size='large' color='olive' onClick={gotoInsuranceDetail}>
                                     รายละเอียด
                             </Button>
                                 <Button icon size='large' color='teal' onClick={() => handleSellInsurance(ratePrice.id, ratePrice.name)}>
