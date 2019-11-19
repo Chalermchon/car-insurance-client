@@ -49,7 +49,7 @@ export default function TypeTwoTable(props) {
                 </Table>
 
                 <Divider horizontal>
-                    <Header as='h4'><Icon name='dollar sign' />price rate</Header>
+                    <Header as='h4'><Icon name='money bill alternate outline' />price rate</Header>
                 </Divider>
 
                 <TwoSaveSpacialRatePrice/>

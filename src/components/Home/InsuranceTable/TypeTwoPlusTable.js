@@ -20,7 +20,7 @@ export default function TypeTwoPlusTable(props) {
     })
 
     let segment
-    if (currentKind == "2+ Minimal (ซ่อมอู่)") {
+    if (currentKind == "2 plus Minimal (ซ่อมอู่)") {
         const best3Option = [
             'คุ้มครองกรณีชนกับยานพาหนะทางบกเท่านั้น',
             '(1) สำหรับรถเก๋ง (110) และรถปิคอัพขนาดไม่เกิน 3 ตัน (320) เท่านั้น (2) คุ้มครองความเสียหายต่อรถยนต์ที่เอาประกันภัย เฉพาะกรณีที่เฉี่ยวชนกับยานพาหนะทางบกเท่านั้น (3) มูลค่ารถยนต์ขณะที่เอาประกันภัยต้องไม่ต่ำกว่าจำนวนเงินเอาประกันภัยตามแผนประกันภัยที่เลือก (4) ไม่รับประกันรถที่ติดตั้งโครง-หลังคาเหล็ก โหลดเตี้ยรถแข่ง หรือรถดัดแปลงสภาพทุกชนิด (5) คุ้มครองอุปกรณ์เครื่องตกแต่งตามมาตรฐานของโรงงานเท่านั้น(6) รถกลุ่ม 1, 2 เช่น MERCEDES-BENZ, BMW, VOLVO, AUDI และอื่นๆ'
@@ -48,7 +48,7 @@ export default function TypeTwoPlusTable(props) {
                 </Table>
 
                 <Divider horizontal>
-                    <Header as='h4'><Icon name='dollar sign' />price rate</Header>
+                    <Header as='h4'><Icon name='money bill alternate outline' />price rate</Header>
                 </Divider>
 
                 <TwoPlusMinimalAuuRatePriceTable />
@@ -56,14 +56,14 @@ export default function TypeTwoPlusTable(props) {
                 <Message header='หมายเหตุ' list={best3Option} />
             </Segment>
     }
-    if (currentKind == "2+ 35 UP") {
+    if (currentKind == "2 plus 35 UP") {
         const best3Option = [
             'ค่าเสียหายส่วนแรก 2,000 บาทกรณีเป็นฝ่ายผิด และผู้ขับขี่มีอายุต่ำกว่า 35 ปี', 'คุ้มครองกรณีชนกับยานพาหนะทางบกเท่านั้น',
             '(1) สำหรับรถเก๋ง (110) และรถปิคอัพขนาดไม่เกิน 3 ตัน (320) เท่านั้น (2) คุ้มครองความเสียหายต่อรถยนต์ที่เอาประกันภัย เฉพาะกรณีที่เฉี่ยวชนกับยานพาหนะทางบกเท่านั้น (3) มูลค่ารถยนต์ขณะที่เอาประกันภัยต้องไม่ต่ำกว่าจำนวนเงินเอาประกันภัยตามแผนประกันภัยที่เลือก (4) ไม่รับประกันรถที่ติดตั้งโครง-หลังคาเหล็ก โหลดเตี้ยรถแข่ง หรือรถดัดแปลงสภาพทุกชนิด (5) คุ้มครองอุปกรณ์เครื่องตกแต่งตามมาตรฐานของโรงงานเท่านั้น (6) รถกลุ่ม 1, 2 เช่น MERCEDES-BENZ, BMW, VOLVO, AUDI และอื่นๆ (7) 2 พลัส 35 UP ผู้ขับขี่ที่มีอายุต่ำกว่า 35 ปีบริบูรณ์ ณ วันที่เกิดเหตุต้องรับผิดชอบค่าเสียหายส่วนแรก 2,000 บาท ในกรณีที่เป็นฝ่ายผิด'
         ]
         segment =
             <Segment>
-                <HeadSection name="Asia 2+ 35 UP" title="ประกันภัยที่ซ่อมรถคุณ รวมรถหาย ไฟไหม้" items={['ไม่มีค่าเสียหายส่วนแรก', 'ไม่จำกัดอายุรถ']} price="เริ่มต้น 5,900 " />
+                <HeadSection name="2+ 35 UP" title="ประกันภัยที่ซ่อมรถคุณ รวมรถหาย ไฟไหม้" items={['ไม่มีค่าเสียหายส่วนแรก', 'ไม่จำกัดอายุรถ']} price="เริ่มต้น 5,900 " />
 
                 <Divider horizontal>
                     <Header as='h4'><Icon name='idea' />Protection table</Header>
@@ -84,7 +84,7 @@ export default function TypeTwoPlusTable(props) {
                 </Table>
 
                 <Divider horizontal>
-                    <Header as='h4'><Icon name='dollar sign' />price rate</Header>
+                    <Header as='h4'><Icon name='money bill alternate outline' />price rate</Header>
                 </Divider>
 
                 {/* <ThreePlusRatePriceTable /> */}
@@ -93,7 +93,7 @@ export default function TypeTwoPlusTable(props) {
                 <Message header='หมายเหตุ' list={best3Option} />
             </Segment>
     }
-    if (currentKind == "2+ MAX (ซ่อมอู่)") {
+    if (currentKind == "2 plus MAX (ซ่อมอู่)") {
         const best3Option = [
             '(1) สำหรับรถญี่ปุ่นและอื่น ๆ (รถกลุ่ม 3-5) เช่น Honda Accord, Toyota Altis, Nissan March, Toyota Commuter เป็นต้น (2) สำหรับรถยุโรป (กลุ่ม 1-2) เช่น Mercedes Benz, BMW, VOLVO, AUDI เป็นต้น (3) รถยนต์นั่งใช้ส่วนบุคคล (รหัส 110), รถกระบะปิคอัพไม่เกิน 3 ตัน (รหัส 320), รถตู้โดยสารส่วนบุคคล (รหัส 210) (4) เบี้ยประกันภัยข้างต้นยังไม่รวมเบี้ยประกันภัย พรบ. (ภาคบังคับ) : เก๋ง = 645.21 บาท, กระบะปิคอัพ = 967.28 บาท, ตู้โดยสารส่วนบุคคล = 1,182.35 บาท (5) ไม่จำกัดอายุรถยนต์กรณีซ่อมอู่ทั่วไป (ขอสงวนสิทธิ์เฉพาะรถยนต์ที่บริษัทกำหนด) และไม่เกิน 5 ปี กรณีซ่อมห้าง / ไม่ต้องตรวจสภาพรถก่อนทำประกันภัย (6) มูลค่ารถขณะที่เอาประกันภัย ต้องไม่ต่ำกว่าจำนวนเงินเอาประกันภัยตามแผนประกันภัยที่เลือก และคุ้มครองอุปกรณ์เครื่องตกแต่ง ตามมาตรฐานของโรงงานเท่านั้น (7) เบี้ยประกันภัยข้างต้นได้คำนวณรวมส่วนลดกล้องโทรทัศน์วงจรปิด (CCTV) ไว้แล้ว และมีผลบังคับจนกว่าจะมีการแจ้งเปลี่ยนแปลง'
         ]
@@ -123,17 +123,16 @@ export default function TypeTwoPlusTable(props) {
                 </Table>
 
                 <Divider horizontal>
-                    <Header as='h4'><Icon name='dollar sign' />price rate</Header>
+                    <Header as='h4'><Icon name='money bill alternate outline' />price rate</Header>
                 </Divider>
 
-                {/* <TwoPlus35UpRatePriceTable /> */}
                 <TwoPlusMaxAuuRatePriceTable />
 
                 <Message header='เงื่อนไขการรับประกันภัย' list={best3Option} />
                 <Message header='รถยนต์ที่บริษัทฯ สงวนสิทธิ์ ไม่รับประกันภัย' list={best3Option1} />
             </Segment>
     }
-    if (currentKind == "2+ MAX (ซ่อมห้าง)") {
+    if (currentKind == "2 plus MAX (ซ่อมห้าง)") {
         const best3Option = [
             '(1) สำหรับรถญี่ปุ่นและอื่น ๆ (รถกลุ่ม 3-5) เช่น Honda Accord, Toyota Altis, Nissan March, Toyota Commuter เป็นต้น (2) สำหรับรถยุโรป (กลุ่ม 1-2) เช่น Mercedes Benz, BMW, VOLVO, AUDI เป็นต้น (3) รถยนต์นั่งใช้ส่วนบุคคล (รหัส 110), รถกระบะปิคอัพไม่เกิน 3 ตัน (รหัส 320), รถตู้โดยสารส่วนบุคคล (รหัส 210) (4) เบี้ยประกันภัยข้างต้นยังไม่รวมเบี้ยประกันภัย พรบ. (ภาคบังคับ) : เก๋ง = 645.21 บาท, กระบะปิคอัพ = 967.28 บาท, ตู้โดยสารส่วนบุคคล = 1,182.35 บาท (5) ไม่จำกัดอายุรถยนต์กรณีซ่อมอู่ทั่วไป (ขอสงวนสิทธิ์เฉพาะรถยนต์ที่บริษัทกำหนด) และไม่เกิน 5 ปี กรณีซ่อมห้าง / ไม่ต้องตรวจสภาพรถก่อนทำประกันภัย (6) มูลค่ารถขณะที่เอาประกันภัย ต้องไม่ต่ำกว่าจำนวนเงินเอาประกันภัยตามแผนประกันภัยที่เลือก และคุ้มครองอุปกรณ์เครื่องตกแต่ง ตามมาตรฐานของโรงงานเท่านั้น (7) เบี้ยประกันภัยข้างต้นได้คำนวณรวมส่วนลดกล้องโทรทัศน์วงจรปิด (CCTV) ไว้แล้ว และมีผลบังคับจนกว่าจะมีการแจ้งเปลี่ยนแปลง'
         ]
@@ -163,7 +162,7 @@ export default function TypeTwoPlusTable(props) {
                 </Table>
 
                 <Divider horizontal>
-                    <Header as='h4'><Icon name='dollar sign' />price rate</Header>
+                    <Header as='h4'><Icon name='money bill alternate outline' />price rate</Header>
                 </Divider>
 
                 <TwoPlusMaxHangRatePriceTable/>
