@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Form, Responsive, Input, Select, Button, Segment, Icon, Transition, Divider } from 'semantic-ui-react'
 
-export default (props) => {
+export default () => {
     const [isHindNextButton, setIsHindNextButton] = useState(true)
     
     return (

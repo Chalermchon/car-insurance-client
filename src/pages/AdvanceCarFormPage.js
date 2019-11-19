@@ -9,7 +9,7 @@ import FourStep from '../components/advanceCarForm/FourStep'
 import FifthStep from '../components/advanceCarForm/FifthStep'
 
 
-export default (props) => {
+export default () => {
   const [isShowStepTwo, setIsShowStepTwo] = useState(false)
   const [isShowStepThree, setIsShowStepThree] = useState(false)
   const [isShowStepFour, setIsShowStepFour] = useState(false)
@@ -19,7 +19,7 @@ export default (props) => {
     <div>
         <div className="layout">
             <div className="carInfoForm">
-                <FirstStep setIsShowStepTwo={() => setIsShowStepTwo(true)} />
+                <FirstStep handleNextToStepTwo={setIsShowStepTwo} />
                 <Transition visible={isShowStepTwo} animation='scale' duration={500}>
                     <SecondStep setIsShowStepThree={() => setIsShowStepThree(true)}/>
                 </Transition>

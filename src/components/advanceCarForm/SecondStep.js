@@ -1,50 +1,92 @@
-import React, { useState } from 'react'
-import { Form, Responsive, Input, Select, Button, Grid, Icon, Transition, Divider } from 'semantic-ui-react'
+import React, { useState, createRef, useEffect } from 'react'
+import { Form, Responsive, Input, Select, Button, TransitionablePortal, Icon, Transition, Divider, Message } from 'semantic-ui-react'
 import { DateInput } from 'semantic-ui-calendar-react'
 
 export default (props) => {
-    const [birthDate, setBirthDate] = useState('')
     const [isHindNextButton, setIsHindNextButton] = useState(true)
 
+    const [namePrefix, setNamePrefix] = useState('')
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [identNumber, setIdentNumber] = useState('')
+    const [birthDate, setBirthDate] = useState('')
+    const [img, setImg] = useState(null)
+    const [email, setEmail] = useState('')
+    const [phone, setPhone] = useState('')
+
+    const [haveImgError, setHaveImgError] = useState(false)
+    const [haveError, setHaveError] = useState(false)
+
+    const fileRef = createRef();
+
     const genderOptions = [
-        { key: '1', text: 'One', value: 'one' },
-        { key: '2', text: 'Two', value: 'two' },
-        { key: '3', text: 'Three', value: 'three' },
+        { key: '0', text: 'นาย', value: 'นาย' },
+        { key: '1', text: 'นาง', value: 'นาง' },
+        { key: '2', text: 'นางสาว', value: 'นางสาว' },
     ]
-    const identNumber = [
+    const identNumberOption = [
         { key: 'ni', text: 'เลขบัตรประชาชน', value: 'nin' },
         { key: 'pp', text: 'เลขหนังสือเดินทาง', value: 'ppn' },
     ]
-  
-    const onChange = (event, { value }) => {
-        setBirthDate(value)
+
+    const fileChange = e => {
+        let file = e.target.files[0];
+        if (file) {
+            if (file.type.split('/')[0] === 'image' && file.type.split('/')[1] !== 'gif') {
+                setImg(file);
+            } else {
+                setHaveImgError(true)
+            }
+        }
+
+    };
+
+    const handleNextButton = () => {
+        if (namePrefix !== '' && firstName !== '' && lastName !== '' &&
+            identNumber !== '' && birthDate !== '' && img &&
+            email !== '' && phone !== ''
+        ) {
+            console.log(namePrefix + ' ' + firstName + ' ' + lastName);
+            console.log(identNumber);
+            console.log(birthDate);
+            console.log(email + ' ' + phone);
+            console.log(img)
+            
+            props.setIsShowStepThree()
+            setIsHindNextButton(false) 
+        } else {
+            setHaveError(true);
+        }
     }
+
     return (
         <div className='carInfoForm'>
-            <br/>
+            <br />
             <Divider horizontal>personal infomation</Divider>
-            <br/>
+            <br />
 
             <Form className='cr-form-comp' size='large'>
                 <Form.Group>
                     <Form.Select
-                        name='namePrefix'
-                        // onChange={(e, { name, value }) => handleChange(e, { name, value })}
+                        value={namePrefix}
+                        onChange={(e, { value }) => setNamePrefix(value)}
                         options={genderOptions}
                         label='คำนำหน้าชื่อ'
                         width='4'
                         fluid
                     />
                     <Form.Input
+                        value={firstName}
                         name='firstName'
-                        // onChange={(e, { name, value }) => handleChange(e, {name, value})}
+                        onChange={(e, { value }) => setFirstName(value)}
                         label='ชื่อจริง'
                         width='6'
                         fluid
                     />
                     <Form.Input
+                        value={lastName}
                         name='lastName'
-                        // onChange={(e, { name, value }) => handleChange(e, {name, value})}
+                        onChange={(e, { value }) => setLastName(value)}
                         label='นามสกุล'
                         width='6'
                         fluid
@@ -59,8 +101,8 @@ export default (props) => {
                             action
                             name='identNumber'
                         >
-                            <input />
-                            <Select compact options={identNumber} defaultValue='nin' />
+                            <input  value={identNumber} onChange={(e) => setIdentNumber(e.target.value)}/>
+                            <Select compact options={identNumberOption} defaultValue='nin' />
                         </Input>
                     </Form.Field>
                     <Form.Field width='6'>
@@ -68,82 +110,114 @@ export default (props) => {
                         <DateInput
                             name="birthDate"
                             value={birthDate}
-                            onChange={onChange}
+                            onChange={(e, {value}) => { setBirthDate(value) }}
                             startMode='year'
                             iconPosition="right"
                             hideMobileKeyboard
                             closable
                             animation='none'
-                            clearable
+                            dateFormat='YYYY-MM-DD'
                         />
                     </Form.Field>
-                    {/* <Form.Field width='3'>
-                        <label>รูปบัตรประชาชน</label>
-                        <Button
-                            content="รูปภาพ"
-                            labelPosition="right"
-                            icon="file"
-                            basic
-                            size='large'
-                        // onClick={() => this.fileInputRef.current.click()}
-                        />
-                        <input
-                            // ref={this.fileInputRef}
-                            name='identImg'
-                            type="file"
-                            hidden
-                        // onChange={this.fileChange}
-                        />
-                    </Form.Field> */}
                 </Form.Group>
                 <Form.Group>
-                    <Form.Field width='5'>
+                    <Form.Field width='4'>
                         <label>รูปบัตรประชาชน</label>
                         <Button
-                            content="รูปภาพ"
+                            content={img ? (img.name.length > 7 ? img.name.substr(0, 6).concat('...') : img.name) : 'อัพโหลด'}
                             labelPosition="right"
                             icon="file"
-                            basic
+                            style={{
+                                backgroundColor: 'white', border: '1px solid rgba(34,36,38,.15)',
+                                textAlign: 'center', paddingRight: '4.2em!important'
+                            }}
                             size='large'
-                        // onClick={() => this.fileInputRef.current.click()}
+                            onClick={() => fileRef.current.click()}
+                            fluid
                         />
                         <input
-                            // ref={this.fileInputRef}
+                            ref={fileRef}
                             name='identImg'
                             type="file"
                             hidden
-                        // onChange={this.fileChange}
+                            onChange={(e) => fileChange(e)}
                         />
                     </Form.Field>
-                    {/* <Form.Field width='10'> */}
+                    <Form.Field width='6'>
                         <Form.Input
                             name='email'
-                            // onChange={(e, { name, value }) => handleChange(e, { name, value })}
+                            value={email}
+                            onChange={(e, { value }) => setEmail(value)}
                             label='อีเมล'
-                            width='16'
                             fluid
                         />
+
+                    </Form.Field>
+                    <Form.Field width='6'>
                         <Form.Input
                             name='phone'
-                            // onChange={(e, { name, value }) => handleChange(e, {name, value})}
+                            value={phone}
+                            onChange={(e, { value }) => setPhone(value)}
                             label='เบอร์โทรศัพท์'
-                            width='13'
                             fluid
-                        />                        
-                    {/* </Form.Field> */}
+                        />
+                    </Form.Field>
 
                 </Form.Group>
                 <br />
                 <br />
-            </Form>   
+            </Form>
             <Transition visible={isHindNextButton} animation='scale' duration={500}>
-                <Button animated color='teal' floated='right'  onClick={() =>{ props.setIsShowStepThree(); setIsHindNextButton(false)}}>
+                <Button animated color='teal' floated='right' onClick={() => {handleNextButton()}}>
                     <Button.Content visible>ถัดไป</Button.Content>
                     <Button.Content hidden>
                         <Icon name='arrow right' />
                     </Button.Content>
-                </Button>                        
+                </Button>
             </Transition>
+
+            <TransitionablePortal
+                open={haveImgError}
+                transition={{ animation: 'fly down', duration: 400 }}
+                onClose={() => setHaveImgError(false)}
+            >
+                <Message
+                    error
+                    header
+                    size='large'
+                    style={{
+                        left: '30vw', right: '30vw', position: 'fixed', top: '15vh',
+                        textAlign: 'center', boxShadow: '0px 5px 10px #b3b3b3'
+                    }}
+                >
+                    <Message.Header>
+                        <Icon name='warning' />
+                        กรุณาเลือกไฟล์ที่เป็นรูปภาพ
+                    </Message.Header>
+
+                </Message>
+            </TransitionablePortal>
+            <TransitionablePortal
+                open={haveError}
+                transition={{ animation: 'fly down', duration: 400 }}
+                onClose={() => setHaveError(false)}
+            >
+                <Message
+                    error
+                    header
+                    size='large'
+                    style={{
+                        left: '30vw', right: '30vw', position: 'fixed', top: '15vh',
+                        textAlign: 'center', boxShadow: '0px 5px 10px #b3b3b3'
+                    }}
+                >
+                    <Message.Header>
+                        <Icon name='warning' />
+                        กรุณากรอกข้อมูลให้ครบถ้วน
+                    </Message.Header>
+
+                </Message>
+            </TransitionablePortal>
         </div>
     )
 }

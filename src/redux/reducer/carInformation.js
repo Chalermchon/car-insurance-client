@@ -3,7 +3,11 @@ const initState = {
         alphabet: '',
         number: '',
         province: ''
-    }
+    },
+    brand: '',
+    model: '',
+    year: '',
+    detail: '',
 }
 
 const carInformationReducer = (state = initState, action) => {
@@ -16,6 +20,14 @@ const carInformationReducer = (state = initState, action) => {
                     number: action.payload.number,
                     province: action.payload.province
                 }
+            };
+        case 'SET_CAR_SERY':
+            return {
+                ...state,
+                brand: action.payload.brand,
+                model: action.payload.model,
+                year: action.payload.year,
+                detail: action.payload.detail
             };
         default:
             return state;

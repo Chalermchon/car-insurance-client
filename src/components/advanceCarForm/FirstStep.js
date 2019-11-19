@@ -1,85 +1,96 @@
 import React, { useState } from 'react'
-import {Button, Icon, Transition, Segment, Form } from 'semantic-ui-react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Button, Icon, Transition, Segment, Form, TransitionablePortal, Message } from 'semantic-ui-react'
+import Label from "../util/Label";
+import { DateInput } from 'semantic-ui-calendar-react';
+import { setStartProtectionAt } from '../../redux/action';
 
-export default (props) => {
+export default ({ handleNextToStepTwo }) => {
     const [isHindNextButton, setIsHindNextButton] = useState(true)
+    const [haveError, setHaveError] = useState(false)
 
-    const dayOptions = [
-        { key: '1', text: '1', value: '1' },
-        { key: '2', text: '2', value: '2' },
-        { key: '3', text: '3', value: '3' },
-        { key: '4', text: '4', value: '4' },
-        { key: '5', text: '5', value: '5' },
-        { key: '6', text: '6', value: '6' },
-        { key: '7', text: '7', value: '7' },
-        { key: '8', text: '8', value: '8' },
-        { key: '9', text: '9', value: '9' },
-        { key: '10', text: '10', value: '10' },
-    ]
+    const brand = useSelector(state => state.carInformation.brand)
+    const model = useSelector(state => state.carInformation.model)
+    const year = useSelector(state => state.carInformation.year)
+    const detail = useSelector(state => state.carInformation.detail)
+    const insuranceTypeName = useSelector(state => state.insuranceRequest.insuranceTypeName)
+    const startProtectionAt = useSelector(state => state.insuranceRequest.startProtectionAt)
 
-    const monthOptions = [
-        { key: '1', text: 'มกราคม', value: 'มกราคม' },
-        { key: '2', text: 'กุมภาพันธ์', value: 'กุมภาพันธ์' },
-        { key: '3', text: 'มีนาคม', value: 'มีนาคม' },
-        { key: '4', text: 'เมษายน', value: 'เมษายน' },
-        { key: '5', text: 'พฤษภาคม', value: 'พฤษภาคม' },
-        { key: '6', text: 'มิถุนายน', value: 'มิถุนายน' },
-        { key: '7', text: 'กรกฎาคม', value: 'กรกฎาคม' },
-        { key: '8', text: 'สิงหาคม', value: 'สิงหาคม' },
-        { key: '9', text: 'กันยายน', value: 'กันยายน' },
-        { key: '10', text: 'ตุลาคม', value: 'ตุลาคม' },
-        { key: '11', text: 'พฤศจิกายน', value: 'พฤศจิกายน' },
-        { key: '12', text: 'ธันวาคม', value: 'ธันวาคม' },
-    ]
+    const dispatch = useDispatch();
 
-    const yearOptions = [
-        { key: '1', text: '2562', value: '2562' },
-        { key: '1', text: '2563', value: '2563' }
-    ]
+    const handleNextButton = () => {
+        handleNextToStepTwo(true)
+        setIsHindNextButton(false) 
+    }
 
     return (
         <div className="carInfoForm">
             <Segment.Group horizontal>
-                <Segment textAlign='center' color='teal'>HONDA</Segment>
-                <Segment textAlign='center' color='teal'>CIVIC</Segment>
-                <Segment textAlign='center' color='teal'>2019</Segment>
-                <Segment textAlign='center' color='teal'>2+ minimal</Segment>
+                <Segment textAlign='center' color='teal'>{brand}</Segment>
+                <Segment textAlign='center' color='teal'>{model}</Segment>
+                <Segment textAlign='center' color='teal'>{year}</Segment>
+                <Segment textAlign='center' color='teal'>{detail}</Segment>
+            </Segment.Group>
+            <Segment.Group horizontal>
+                <Segment textAlign='center' color='teal'>{insuranceTypeName}</Segment>
             </Segment.Group>
 
             <Form className='cr-form-comp' size='large'>
-                <Form.Group>
-                    <Form.Select
-                        name='protectDate'
-                        options={dayOptions}
-                        label='วันเริ่มคุ้มครอง'
-                        width='4'
-                        fluid
-                    />
-                    <Form.Select
-                        name='protectMonth'
-                        options={monthOptions}
-                        label='เดือนเริ่มคุ้มครอง'
-                        width='8'
-                        fluid
-                    />
-                    <Form.Select
-                        name='protectYear'
-                        options={yearOptions}
-                        label='ปีเริ่มคุ้มครอง'
-                        width='5'
-                        fluid
-                    />
+                <Form.Group inline>
+                    <Form.Field width='3'>
+                        <label >วันที่เริ่มคุ้มครอง</label>
+                    </Form.Field>
+                    <Form.Field width='14'>
+                        <DateInput
+                            value={startProtectionAt}
+                            onChange={(e,v) => dispatch(setStartProtectionAt(v.value))}
+                            iconPosition="right"
+                            hideMobileKeyboard
+                            closable
+                            animation='none'
+                            popupPosition='bottom center'
+                            pickerWidth='50vw'
+                            width='16'
+                            textAlign='center'
+                            dateFormat='YYYY-MM-DD'
+                            minDate={((new Date()).getFullYear()) + '-' + ((new Date()).getMonth() + 1) + '-' + ((new Date()).getDate() + 1)}
+                        />
+                    </Form.Field>
                 </Form.Group>
             </Form>
 
             <Transition visible={isHindNextButton} animation='scale' duration={500}>
-                <Button animated color='teal' floated='right' onClick={() => {props.setIsShowStepTwo(); setIsHindNextButton(false)}}>
+                <Button animated color='teal' floated='right' 
+                    onClick={() => { 
+                        if (startProtectionAt) {
+                            handleNextButton()
+                        }else{
+                            setHaveError(true)
+                        }
+                    }}
+                >
                     <Button.Content visible>ถัดไป</Button.Content>
                     <Button.Content hidden>
                         <Icon name='arrow right' />
                     </Button.Content>
-                </Button>                 
-            </Transition>        
+                </Button>
+            </Transition>
+            <TransitionablePortal
+                open={haveError}
+                transition={{ animation:'fly down', duration: 400}}
+                onClose={() => setHaveError(false)}
+            >
+                <Message
+                    error
+                    header
+                    size='large'
+                    style={{ left: '30vw', right:'30vw', position: 'fixed', top: '15vh',
+                        textAlign: 'center', boxShadow: '0px 5px 10px #b3b3b3'}}
+                >
+                    <Icon name='warning' />
+                    กรุณาเลือกวันที่ต้องการเริ่มคุ้มครอง
+                </Message>
+            </TransitionablePortal>
         </div>
     )
 }
