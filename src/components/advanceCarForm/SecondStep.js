@@ -1,6 +1,11 @@
 import React, { useState, createRef, useEffect } from 'react'
-import { Form, Responsive, Input, Select, Button, TransitionablePortal, Icon, Transition, Divider, Message } from 'semantic-ui-react'
+import { useDispatch } from 'react-redux'
+import {
+    Form, Responsive, Input, Select, Button, TransitionablePortal,
+    Icon, Transition, Divider, Message
+} from 'semantic-ui-react'
 import { DateInput } from 'semantic-ui-calendar-react'
+import { setCustomerInformation } from '../../redux/action'
 
 export default (props) => {
     const [isHindNextButton, setIsHindNextButton] = useState(true)
@@ -18,6 +23,7 @@ export default (props) => {
     const [haveError, setHaveError] = useState(false)
 
     const fileRef = createRef();
+    const dispatch = useDispatch();
 
     const genderOptions = [
         { key: '0', text: 'นาย', value: 'นาย' },
@@ -51,12 +57,25 @@ export default (props) => {
             console.log(birthDate);
             console.log(email + ' ' + phone);
             console.log(img)
-            
+            dispatch(setCustomerInformation({
+                namePrefix: namePrefix,
+                firstName: firstName,
+                lastName: lastName,
+                identNumber: identNumber,
+                birthDate: birthDate,
+                email: email,
+                phone: phone,
+                identImg: img
+            }))
+
             props.setIsShowStepThree()
             setIsHindNextButton(false) 
         } else {
             setHaveError(true);
         }
+        //TODO: Test
+        // props.setIsShowStepThree()
+        // setIsHindNextButton(false)
     }
 
     return (
@@ -101,7 +120,7 @@ export default (props) => {
                             action
                             name='identNumber'
                         >
-                            <input  value={identNumber} onChange={(e) => setIdentNumber(e.target.value)}/>
+                            <input value={identNumber} onChange={(e) => setIdentNumber(e.target.value)} />
                             <Select compact options={identNumberOption} defaultValue='nin' />
                         </Input>
                     </Form.Field>
@@ -110,7 +129,7 @@ export default (props) => {
                         <DateInput
                             name="birthDate"
                             value={birthDate}
-                            onChange={(e, {value}) => { setBirthDate(value) }}
+                            onChange={(e, { value }) => { setBirthDate(value) }}
                             startMode='year'
                             iconPosition="right"
                             hideMobileKeyboard
@@ -168,7 +187,7 @@ export default (props) => {
                 <br />
             </Form>
             <Transition visible={isHindNextButton} animation='scale' duration={500}>
-                <Button animated color='teal' floated='right' onClick={() => {handleNextButton()}}>
+                <Button animated color='teal' floated='right' onClick={() => { handleNextButton() }}>
                     <Button.Content visible>ถัดไป</Button.Content>
                     <Button.Content hidden>
                         <Icon name='arrow right' />

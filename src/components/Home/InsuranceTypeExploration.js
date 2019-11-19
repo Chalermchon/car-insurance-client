@@ -16,7 +16,7 @@ export default function InsuranceTypeExploration() {
 
     return (
         <div className='lte-menu-bar'>
-                <Menu pointing widths="5" size="big">
+                <Menu pointing widths="5">
                     <Menu.Item
                         key='1'
                         name='1'

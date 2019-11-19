@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Button, Icon, Transition, Segment, Form, TransitionablePortal, Message } from 'semantic-ui-react'
-import Label from "../util/Label";
 import { DateInput } from 'semantic-ui-calendar-react';
 import { setStartProtectionAt } from '../../redux/action';
 
@@ -19,8 +18,15 @@ export default ({ handleNextToStepTwo }) => {
     const dispatch = useDispatch();
 
     const handleNextButton = () => {
-        handleNextToStepTwo(true)
-        setIsHindNextButton(false) 
+        if (startProtectionAt) {
+            handleNextToStepTwo(true)
+            setIsHindNextButton(false) 
+        }else{
+            setHaveError(true)
+        }
+        //TODO: Test
+        // handleNextToStepTwo(true)
+        // setIsHindNextButton(false) 
     }
 
     return (
@@ -60,15 +66,7 @@ export default ({ handleNextToStepTwo }) => {
             </Form>
 
             <Transition visible={isHindNextButton} animation='scale' duration={500}>
-                <Button animated color='teal' floated='right' 
-                    onClick={() => { 
-                        if (startProtectionAt) {
-                            handleNextButton()
-                        }else{
-                            setHaveError(true)
-                        }
-                    }}
-                >
+                <Button animated color='teal' floated='right' onClick={() => {handleNextButton()}}>
                     <Button.Content visible>ถัดไป</Button.Content>
                     <Button.Content hidden>
                         <Icon name='arrow right' />

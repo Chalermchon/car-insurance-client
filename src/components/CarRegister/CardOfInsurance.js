@@ -61,7 +61,7 @@ export default (props) => {
 
     const handleSellInsurance = (insuranceTypeId, insuranceTypeName) => {
         dispatch(setInsuranceTypeId(insuranceTypeId))
-        dispatch(setInsuranceTypeName(insuranceTypeName))
+        dispatch(setInsuranceTypeName('ประเภท '+insuranceTypeName))
         history.push("/advance-car-form");
     }
     const gotoInsuranceDetail = (e) => {

@@ -8,6 +8,8 @@ const initState = {
     model: '',
     year: '',
     detail: '',
+    vinNumber: '',
+    engNumber: '',
 }
 
 const carInformationReducer = (state = initState, action) => {
@@ -28,6 +30,12 @@ const carInformationReducer = (state = initState, action) => {
                 model: action.payload.model,
                 year: action.payload.year,
                 detail: action.payload.detail
+            };
+        case 'SET_CAR_IDENT_NUMBER':
+            return {
+                ...state,
+                vinNumber: action.payload.vinNumber,
+                engNumber: action.payload.engNumber,
             };
         default:
             return state;

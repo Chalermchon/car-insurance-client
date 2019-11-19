@@ -39,3 +39,34 @@ export const setStartProtectionAt = (startProtectionAt) => {
         payload: startProtectionAt
     };
 }
+
+export const setCustomerInformation = (customerInformation) => {
+
+    return {
+        type: 'SET_CUSTOMER_INFORMATION',
+        payload: customerInformation
+    };
+}
+
+export const setCareerCustomer = (careerCustomer) => {
+
+    return {
+        type: 'SET_CAREER_CUSTOMER',
+        payload: careerCustomer
+    };
+}
+
+export const setAddressCustomer = (addressCustomer) => {
+
+    return {
+        type: 'SET_ADDRESS_CUSTOMER',
+        payload: addressCustomer
+    };
+}
+
+export const setCarIdentNumber = (carIdentNumber) => {
+    return {
+        type: 'SET_CAR_IDENT_NUMBER',
+        payload: carIdentNumber
+    };
+}
