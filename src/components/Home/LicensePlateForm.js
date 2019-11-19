@@ -60,7 +60,7 @@ function LicensePlateForm() {
                 </Card.Content>
                 <Card.Content extra textAlign="right" className='lp-computer-card-footer' >
                     <Button animated color='teal' onClick={nextToCarRegisterFormPage} role="submit">
-                        <Button.Content visible>Next</Button.Content>
+                            <Button.Content visible>ถัดไป</Button.Content>
                         <Button.Content hidden>
                             <Icon name='arrow right' />
                         </Button.Content>
