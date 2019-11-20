@@ -64,9 +64,30 @@ export const setAddressCustomer = (addressCustomer) => {
     };
 }
 
-export const setCarIdentNumber = (carIdentNumber) => {
+export const setCarVinNumber = (carVinNumber) => {
     return {
-        type: 'SET_CAR_IDENT_NUMBER',
-        payload: carIdentNumber
+        type: 'SET_CAR_VIN_NUMBER',
+        payload: carVinNumber
+    };
+}
+
+export const setCarEngNumber = (carEngNumber) => {
+    return {
+        type: 'SET_CAR_ENG_NUMBER',
+        payload: carEngNumber
+    };
+}
+
+export const setCarSeryId = (carSeryId) => {
+    return {
+        type: 'SET_CAR_SERY_ID',
+        payload: carSeryId
+    };
+}
+
+export const setOldCustomer = (oldCustomer) => {
+    return {
+        type: 'SET_OLD_CUSTOMER',
+        payload: oldCustomer
     };
 }

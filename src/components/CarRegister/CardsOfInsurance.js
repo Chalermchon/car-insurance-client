@@ -1,32 +1,16 @@
+
 import React, { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-
-import { Card, Icon, Table, Header, Responsive, Button } from 'semantic-ui-react'
-
 import axios from "../../axios";
-import { setInsuranceTypeId, setInsuranceTypeName } from '../../redux/action';
 
-const getTableRows = (optionKeys, option) => {
-    if (optionKeys !== null) {
-        return optionKeys.map(optionKey => {
-            if (option[optionKey] !== null) {
-                return (
-                    <Table.Row>
-                        <Table.Cell>
-                            <Header as='h4' image>
-                                <Header.Subheader>{optionKey}</Header.Subheader>
-                            </Header>
-                        </Table.Cell>
-                        <Table.Cell textAlign='right'>{option[optionKey]} บาท</Table.Cell>
-                    </Table.Row>
-                );
-            }
-        });
-    }
-}
+import { Card, Icon, Table, Responsive, Button } from 'semantic-ui-react'
 
-export default (props) => {
+import { setInsuranceTypeId, setInsuranceTypeName, setCarSeryId } from '../../redux/action';
+import { getRatePricesAndCarSeryId } from '../../axios/RatePrice';
+import SubCardOfinsurance from './SubOfCardOfinsurance';
+
+export default () => {
     const usePrevious = (value) => {
         const ref = useRef();
         useEffect(() => {
@@ -43,34 +27,37 @@ export default (props) => {
     const prevCarInformation = usePrevious(carInformation);
 
     const [ratePrices, setRatePrices] = useState([]);
+    const [tmpCarSeryId, setTmpCarSeryId] = useState(0);
+
 
     useEffect(() => {
         if (prevInsuranceGroup !== insuranceGroup || prevCarInformation !== carInformation) {
-            let brand = carInformation.brand;
-            let model = carInformation.model;
-            let year = carInformation.year;
-            let detail = carInformation.detail;
+            let brand = carInformation.brand
+            let model = carInformation.model
+            let year = carInformation.year
+            let detail = carInformation.detail
             axios.get(`/api/rate-prices/${brand}/${model}/${year}/${detail}`).then(res => {
                 let ratePrices = res.data.data.filter(value => {
                     return value.group === insuranceGroup;
                 })
+                console.log(ratePrices);
+                
                 setRatePrices(ratePrices)
+                setTmpCarSeryId(res.data.carSeryId)
             });
         }
-    })
+    }, [prevInsuranceGroup, insuranceGroup, prevCarInformation, carInformation])
 
     const handleSellInsurance = (insuranceTypeId, insuranceTypeName) => {
         dispatch(setInsuranceTypeId(insuranceTypeId))
-        dispatch(setInsuranceTypeName('ประเภท '+insuranceTypeName))
+        dispatch(setInsuranceTypeName('ประเภท ' + insuranceTypeName))
+        dispatch(setCarSeryId(tmpCarSeryId))
         history.push("/advance-car-form");
-    }
-    const gotoInsuranceDetail = (e) => {
-        window.location = '/'
     }
 
     const getRatePriceCards = () => {
         if (ratePrices.length) {
-            return ratePrices.map(ratePrice => {
+            return (ratePrices.map(ratePrice => {
                 return (
                     <Card>
                         <Card.Content>
@@ -80,7 +67,10 @@ export default (props) => {
                             <Card.Description textAlign='center'>
                                 <Table basic='very' celled>
                                     <Table.Body>
-                                        {getTableRows(ratePrice.option !== null ? Object.keys(ratePrice.option) : null, ratePrice.option)}
+                                        <SubCardOfinsurance 
+                                            optionKeys={ ratePrice.option !== null ? Object.keys(ratePrice.option) : []}
+                                            option={ratePrice.option}
+                                        />
                                     </Table.Body>
                                 </Table>
                             </Card.Description>
@@ -93,17 +83,17 @@ export default (props) => {
                         </Card.Content>
                         <Card.Content extra textAlign='center'>
                             <Button.Group attached='bottom'>
-                                <Button icon size='large' color='olive' onClick={gotoInsuranceDetail}>
+                                {/* <Button icon size='large' color='olive' onClick={gotoInsuranceDetail}>
                                     รายละเอียด
-                            </Button>
+                                </Button> */}
                                 <Button icon size='large' color='teal' onClick={() => handleSellInsurance(ratePrice.id, ratePrice.name)}>
                                     ซื้อประกันนี้
-                            </Button>
+                                </Button>
                             </Button.Group>
                         </Card.Content>
                     </Card>
                 );
-            });
+            }));
         }
     }
 
@@ -115,7 +105,7 @@ export default (props) => {
                 </Card.Group>
             </Responsive>
             <Responsive {...Responsive.onlyTablet}>
-                <Card.Group itemsPerRow={2}>
+                <Card.Group itemsPerRow={2} >
                     {getRatePriceCards()}
                 </Card.Group>
             </Responsive>

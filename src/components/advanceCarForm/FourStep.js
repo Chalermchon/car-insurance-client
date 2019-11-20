@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Form, Responsive, Message, TransitionablePortal, Button, Grid, Icon, Transition, Divider } from 'semantic-ui-react'
 
 import provincesOption from "../util/provinces";
@@ -8,29 +8,23 @@ import { setAddressCustomer } from '../../redux/action';
 export default (props) => {
     const [isHindNextButton, setIsHindNextButton] = useState(true);
 
-    const [houseNumber, setHouseNumber] = useState('');
-    const [tambon, setTambon] = useState('');
-    const [road, setRoad] = useState('');
-    const [changwat, setChangwat] = useState('');
-    const [amphoe, setAmphoe] = useState('');
-    const [postalCode, setPostalCode] = useState('');
+    const customerInformation = useSelector(state => state.customerInformation)
+    const oldCustomer = useSelector(state => state.oldCustomer)
+
+    const houseNumber = customerInformation.houseNumber
+    const tambon = customerInformation.tambon
+    const changwat = customerInformation.changwat
+    const amphoe = customerInformation.amphoe
+    const postalCode = customerInformation.postalCode
 
     const [haveError, setHaveError] = useState(false)
 
     const dispatch = useDispatch();
 
     const handleNextButton = () => {
-        if (houseNumber !== '' && tambon !== '' &&
-            road !== '' && changwat !== '' &&
-            amphoe !== '' && postalCode !== '') {
-            dispatch(setAddressCustomer({
-                houseNumber: houseNumber,
-                tambon: tambon,
-                road: road,
-                changwat: changwat,
-                amphoe: amphoe,
-                postalCode: postalCode
-            }));
+        if (houseNumber !== '' && tambon !== '' && amphoe !== '' &&
+            changwat !== '' && postalCode !== '') {
+            
             props.setIsShowStepFive()
             setIsHindNextButton(false)
         } else {
@@ -49,48 +43,77 @@ export default (props) => {
             <Form>
                 <Form.Group>
                     <Form.Input
+                        value={houseNumber}
                         name='houseNumber'
-                        onChange={(e, { value }) => setHouseNumber(value)}
+                        onChange={(e, { value }) => dispatch(setAddressCustomer({
+                            houseNumber: value,
+                            tambon,
+                            changwat,
+                            amphoe,
+                            postalCode
+                        }))}
                         label='บ้านเลขที่'
                         width='4'
                         fluid
                     />
                     <Form.Input
+                        value={tambon}
                         name='tambon'
-                        onChange={(e, { value }) => setTambon(value)}
+                        onChange={(e, { value }) => dispatch(setAddressCustomer({
+                            houseNumber,
+                            tambon: value,
+                            changwat,
+                            amphoe,
+                            postalCode
+                        }))}
                         label='แขวง / ตำบล'
                         width='6'
                         fluid
                     />
                     <Form.Input
-                        name='road'
-                        onChange={(e, { value }) => setRoad(value)}
-                        label='ถนน'
+                        value={amphoe}
+                        name='amphoe'
+                        onChange={(e, { value }) => dispatch(setAddressCustomer({
+                            houseNumber,
+                            tambon,
+                            changwat,
+                            amphoe: value,
+                            postalCode
+                        }))}
+                        label='เขต / อำเภอ'
                         width='6'
                         fluid
                     />
                 </Form.Group>
-                <Form.Group>
+                <Form.Group style={{
+                    display: 'flex', flexDirection: 'row', justifyContent: 'center'
+                }}>
                     <Form.Select
                         value={changwat}
-                        onChange={(e, { value }) => setChangwat(value)}
+                        onChange={(e, { value }) => dispatch(setAddressCustomer({
+                            houseNumber,
+                            tambon,
+                            changwat: value,
+                            amphoe,
+                            postalCode
+                        }))}
                         options={provincesOption}
                         label='จังหวัด'
-                        width='6'
+                        width='7'
                         fluid
                     />
                     <Form.Input
-                        name='amphoe'
-                        onChange={(e, { value }) => setAmphoe(value)}
-                        label='อำเภอ'
-                        width='5'
-                        fluid
-                    />
-                    <Form.Input
+                        value={postalCode}
                         name='postalCode'
-                        onChange={(e, { value }) => setPostalCode(value)}
+                        onChange={(e, { value }) => dispatch(setAddressCustomer({
+                            houseNumber,
+                            tambon,
+                            changwat,
+                            amphoe,
+                            postalCode: value
+                        }))}
                         label='รหัสไปรษณีย์'
-                        width='5'
+                        width='4'
                         fluid
                     />
                 </Form.Group>

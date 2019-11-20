@@ -1,5 +1,5 @@
 import React, { useState, createRef, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import {
     Form, Responsive, Input, Select, Button, TransitionablePortal,
     Icon, Transition, Divider, Message
@@ -10,14 +10,17 @@ import { setCustomerInformation } from '../../redux/action'
 export default (props) => {
     const [isHindNextButton, setIsHindNextButton] = useState(true)
 
-    const [namePrefix, setNamePrefix] = useState('')
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [identNumber, setIdentNumber] = useState('')
-    const [birthDate, setBirthDate] = useState('')
-    const [img, setImg] = useState(null)
-    const [email, setEmail] = useState('')
-    const [phone, setPhone] = useState('')
+    const customerInformation = useSelector(state => state.customerInformation)
+    const oldCustomer = useSelector(state => state.oldCustomer)
+
+    const namePrefix = customerInformation.namePrefix
+    const firstName = customerInformation.firstName
+    const lastName = customerInformation.lastName
+    const identNumber = customerInformation.identNumber
+    const birthDate = customerInformation.birthDate
+    const identImg = customerInformation.identImg
+    const email = customerInformation.email
+    const phone = customerInformation.phone
 
     const [haveImgError, setHaveImgError] = useState(false)
     const [haveError, setHaveError] = useState(false)
@@ -39,7 +42,16 @@ export default (props) => {
         let file = e.target.files[0];
         if (file) {
             if (file.type.split('/')[0] === 'image' && file.type.split('/')[1] !== 'gif') {
-                setImg(file);
+                dispatch(setCustomerInformation({
+                    namePrefix,
+                    firstName,
+                    lastName,
+                    identNumber,
+                    birthDate,
+                    identImg: file,
+                    email,
+                    phone
+                }));
             } else {
                 setHaveImgError(true)
             }
@@ -48,28 +60,19 @@ export default (props) => {
     };
 
     const handleNextButton = () => {
-        if (namePrefix !== '' && firstName !== '' && lastName !== '' &&
-            identNumber !== '' && birthDate !== '' && img &&
-            email !== '' && phone !== ''
+        if ((namePrefix !== '' && firstName !== '' && lastName !== '' &&
+            identNumber !== '' && birthDate !== '' && identImg &&
+            email !== '' && phone !== '') || (oldCustomer && (firstName !== '' &&
+            lastName !== '' && email !== '' && phone !== '' ))
         ) {
             console.log(namePrefix + ' ' + firstName + ' ' + lastName);
             console.log(identNumber);
             console.log(birthDate);
             console.log(email + ' ' + phone);
-            console.log(img)
-            dispatch(setCustomerInformation({
-                namePrefix: namePrefix,
-                firstName: firstName,
-                lastName: lastName,
-                identNumber: identNumber,
-                birthDate: birthDate,
-                email: email,
-                phone: phone,
-                identImg: img
-            }))
+            console.log(identImg)
 
             props.setIsShowStepThree()
-            setIsHindNextButton(false) 
+            setIsHindNextButton(false)
         } else {
             setHaveError(true);
         }
@@ -86,9 +89,22 @@ export default (props) => {
 
             <Form className='cr-form-comp' size='large'>
                 <Form.Group>
-                    <Form.Select
+                    <Form.Field
+                        control={oldCustomer ? Input : Select}
+                        readOnly={oldCustomer}
                         value={namePrefix}
-                        onChange={(e, { value }) => setNamePrefix(value)}
+                        onChange={(e, { value }) => {
+                            dispatch(setCustomerInformation({
+                                namePrefix: value,
+                                firstName,
+                                lastName,
+                                identNumber,
+                                birthDate,
+                                identImg,
+                                email,
+                                phone
+                            }))
+                        }}
                         options={genderOptions}
                         label='คำนำหน้าชื่อ'
                         width='4'
@@ -97,7 +113,18 @@ export default (props) => {
                     <Form.Input
                         value={firstName}
                         name='firstName'
-                        onChange={(e, { value }) => setFirstName(value)}
+                        onChange={(e, { value }) => {
+                            dispatch(setCustomerInformation({
+                                namePrefix,
+                                firstName: value,
+                                lastName,
+                                identNumber,
+                                birthDate,
+                                identImg,
+                                email,
+                                phone
+                            }))
+                        }}
                         label='ชื่อจริง'
                         width='6'
                         fluid
@@ -105,7 +132,18 @@ export default (props) => {
                     <Form.Input
                         value={lastName}
                         name='lastName'
-                        onChange={(e, { value }) => setLastName(value)}
+                        onChange={(e, { value }) => {
+                            dispatch(setCustomerInformation({
+                                namePrefix,
+                                firstName,
+                                lastName: value,
+                                identNumber,
+                                birthDate,
+                                identImg,
+                                email,
+                                phone
+                            }))
+                        }}
                         label='นามสกุล'
                         width='6'
                         fluid
@@ -113,43 +151,64 @@ export default (props) => {
 
                 </Form.Group>
                 <Form.Group >
-                    <Form.Field width='10'>
-                        <label>เลขบัตรประชาชน / เลขหนังสือเดินทาง</label>
-                        <Input
-                            type='text'
-                            action
-                            name='identNumber'
-                        >
-                            <input value={identNumber} onChange={(e) => setIdentNumber(e.target.value)} />
-                            <Select compact options={identNumberOption} defaultValue='nin' />
-                        </Input>
-                    </Form.Field>
-                    <Form.Field width='6'>
+                    <Form.Field width='5'>
                         <label>วัน เดือน ปี เกิด</label>
                         <DateInput
-                            name="birthDate"
+                            readOnly={oldCustomer}
                             value={birthDate}
-                            onChange={(e, { value }) => { setBirthDate(value) }}
+                            onChange={(e, { value }) => {
+                                dispatch(setCustomerInformation({
+                                    namePrefix,
+                                    firstName,
+                                    lastName,
+                                    identNumber,
+                                    birthDate: value,
+                                    identImg,
+                                    email,
+                                    phone
+                                }))
+                            }}
                             startMode='year'
                             iconPosition="right"
                             hideMobileKeyboard
+                            popupPosition='top center'
                             closable
                             animation='none'
                             dateFormat='YYYY-MM-DD'
-                            maxDate={((new Date()).getFullYear()-18) + '-' + ((new Date()).getMonth()) + '-' + ((new Date()).getDate() + 1)}
+                            maxDate={((new Date()).getFullYear() - 18) + '-' + ((new Date()).getMonth() + 1) + '-' + ((new Date()).getDate())}
+                            initialDate={((new Date()).getFullYear() - 18) + '-' + ((new Date()).getMonth() + 1) + '-' + ((new Date()).getDate())}
                         />
                     </Form.Field>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Field width='4'>
+                    <Form.Input
+                        readOnly={oldCustomer}
+                        value={identNumber}
+                        name='identNumber'
+                        onChange={(e, { value }) => {
+                            dispatch(setCustomerInformation({
+                                namePrefix,
+                                firstName,
+                                lastName,
+                                identNumber: value,
+                                birthDate,
+                                identImg,
+                                email,
+                                phone
+                            }))
+                        }}
+                        label='เลขบัตรประชาชน'
+                        width='6'
+                        fluid
+                    />
+                    <Form.Field width='5'>
                         <label>รูปบัตรประชาชน</label>
                         <Button
-                            content={img ? (img.name.length > 7 ? img.name.substr(0, 6).concat('...') : img.name) : 'อัพโหลดรูปภาพ'}
+                            disabled={oldCustomer}
+                            content={identImg ? (identImg.name.length > 7 ? identImg.name.substr(0, 6).concat('...') : identImg.name) : 'อัพโหลดรูปภาพ'}
                             labelPosition="right"
                             icon="file"
                             style={{
                                 backgroundColor: 'white', border: '1px solid rgba(34,36,38,.15)',
-                                textAlign: 'center', paddingRight: '4.2em!important'
+                                textAlign: 'left', paddingRight: '4.2em!important'
                             }}
                             size='large'
                             onClick={() => fileRef.current.click()}
@@ -163,21 +222,46 @@ export default (props) => {
                             onChange={(e) => fileChange(e)}
                         />
                     </Form.Field>
+
+                </Form.Group>
+                <Form.Group style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
                     <Form.Field width='6'>
                         <Form.Input
                             name='email'
                             value={email}
-                            onChange={(e, { value }) => setEmail(value)}
+                            onChange={(e, { value }) => {
+                                dispatch(setCustomerInformation({
+                                    namePrefix,
+                                    firstName,
+                                    lastName,
+                                    identNumber,
+                                    birthDate,
+                                    identImg,
+                                    email: value,
+                                    phone
+                                }))
+                            }}
                             label='อีเมล'
                             fluid
                         />
 
                     </Form.Field>
-                    <Form.Field width='6'>
+                    <Form.Field width='5'>
                         <Form.Input
                             name='phone'
                             value={phone}
-                            onChange={(e, { value }) => setPhone(value)}
+                            onChange={(e, { value }) => {
+                                dispatch(setCustomerInformation({
+                                    namePrefix,
+                                    firstName,
+                                    lastName,
+                                    identNumber,
+                                    birthDate,
+                                    identImg,
+                                    email,
+                                    phone: value
+                                }))
+                            }}
                             label='เบอร์โทรศัพท์'
                             fluid
                         />

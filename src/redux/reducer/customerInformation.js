@@ -10,7 +10,6 @@ const initState = {
     career: '',
     houseNumber: '',
     tambon: '',
-    road: '',
     changwat: '',
     amphoe: '',
     postalCode: '',
@@ -39,11 +38,12 @@ const customerInformationReducer = (state = initState, action) => {
                 ...state,
                 houseNumber: action.payload.houseNumber,
                 tambon: action.payload.tambon,
-                road: action.payload.road,
                 changwat: action.payload.changwat,
                 amphoe: action.payload.amphoe,
                 postalCode: action.payload.postalCode,
             };
+        case 'SET_OLD_CUSTOMER':
+            return action.payload.customerInformation;
         default:
             return state;
     }

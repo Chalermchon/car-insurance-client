@@ -4,6 +4,7 @@ const initState = {
         number: '',
         province: ''
     },
+    carSeryId: 0,
     brand: '',
     model: '',
     year: '',
@@ -31,15 +32,27 @@ const carInformationReducer = (state = initState, action) => {
                 year: action.payload.year,
                 detail: action.payload.detail
             };
-        case 'SET_CAR_IDENT_NUMBER':
+        case 'SET_CAR_VIN_NUMBER':
             return {
                 ...state,
-                vinNumber: action.payload.vinNumber,
-                engNumber: action.payload.engNumber,
+                vinNumber: action.payload
             };
+        case 'SET_CAR_ENG_NUMBER':
+            return {
+                ...state,
+                engNumber: action.payload
+            };
+        case 'SET_CAR_SERY_ID':
+            return {
+                ...state,
+                carSeryId: action.payload
+            };
+        case 'SET_OLD_CUSTOMER':
+            return action.payload.carInformation;
         default:
             return state;
     }
 }
+
 
 export default carInformationReducer;

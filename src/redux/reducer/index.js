@@ -14,6 +14,14 @@ const reducers = combineReducers({
                 return state;
         }
     },
+    oldCustomer: (state = false, action) => {
+        switch (action.type) {
+            case 'SET_OLD_CUSTOMER':
+                return true
+            default:
+                return state;
+        }
+    },
     insuranceRequest: insuranceRequestReducer,
 });
 

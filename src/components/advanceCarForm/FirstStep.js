@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Button, Icon, Transition, Segment, Form, TransitionablePortal, Message } from 'semantic-ui-react'
 import { DateInput } from 'semantic-ui-calendar-react';
@@ -8,12 +8,16 @@ export default ({ handleNextToStepTwo }) => {
     const [isHindNextButton, setIsHindNextButton] = useState(true)
     const [haveError, setHaveError] = useState(false)
 
-    const brand = useSelector(state => state.carInformation.brand)
-    const model = useSelector(state => state.carInformation.model)
-    const year = useSelector(state => state.carInformation.year)
-    const detail = useSelector(state => state.carInformation.detail)
-    const insuranceTypeName = useSelector(state => state.insuranceRequest.insuranceTypeName)
-    const startProtectionAt = useSelector(state => state.insuranceRequest.startProtectionAt)
+    const carInformation = useSelector(state => state.carInformation)
+    const insuranceRequest = useSelector(state => state.insuranceRequest)
+
+    const brand = carInformation.brand;
+    const model = carInformation.model;
+    const year = carInformation.year;
+    const detail = carInformation.detail;
+
+    const insuranceTypeName = insuranceRequest.insuranceTypeName;
+    const startProtectionAt = insuranceRequest.startProtectionAt;
 
     const dispatch = useDispatch();
 
@@ -59,7 +63,7 @@ export default ({ handleNextToStepTwo }) => {
                             width='16'
                             textAlign='center'
                             dateFormat='YYYY-MM-DD'
-                            minDate={((new Date()).getFullYear()) + '-' + ((new Date()).getMonth() + 1) + '-' + ((new Date()).getDate() + 1)}
+                            minDate={((new Date()).getFullYear()) + '-' + ((new Date()).getMonth() + 1) + '-' + ((new Date()).getDate() + 5)}
                         />
                     </Form.Field>
                 </Form.Group>

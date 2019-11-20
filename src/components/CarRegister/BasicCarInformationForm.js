@@ -1,12 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useDispatch } from "react-redux";
-import { Form, Checkbox, Button, Dimmer, Message, TransitionablePortal, Icon } from 'semantic-ui-react'
+import { useSelector, useDispatch } from "react-redux";
+import {
+    Form, Checkbox, Button, Icon,
+    Dimmer, Message, TransitionablePortal,
+    Segment, Loader, Image, Select, Input
+} from 'semantic-ui-react'
 
-import axios from "../../axios";
+import { getBrands, getModels, getYears, getDetails } from "../../axios/CarSery";
 import { setCarSery, setInsuranceGroup } from '../../redux/action';
 
-export default (props) => {
+export default () => {
 
+    const carInformation = useSelector(state => state.carInformation);
+    const insuranceGroup = useSelector(state => state.insuranceGroup);
+    const oldCustomer = useSelector(state => state.oldCustomer);
     const dispatch = useDispatch();
 
     const usePrevious = (value) => {
@@ -17,117 +24,140 @@ export default (props) => {
         return ref.current;
     }
 
-    const [notError, setNotError] = useState(true)
-
-    const [value, setValue] = useState('');
-
-    const [brand, setBrand] = useState('');
+    const brand = carInformation.brand;
     const prevBrand = usePrevious(brand);
-    const [model, setModel] = useState('');
+    const model = carInformation.model;
     const prevModel = usePrevious(model);
-    const [year, setYear] = useState('');
+    const year = carInformation.year;
     const prevYear = usePrevious(year);
-    const [detail, setDetail] = useState('');
+    const detail = carInformation.detail;
+
+    const [notError, setNotError] = useState(true)
+    const [loading, setLoading] = useState(true)
+    const timeout = useRef(false)
 
     const [brandsOption, setBrandsOption] = useState([]);
     const [modelsOption, setModelsOption] = useState([]);
     const [yearsOption, setYearsOption] = useState([]);
     const [detailsOption, setDetailsOption] = useState([]);
 
-    const getDataOfOption = (path, setMethod) => {
-        axios.get(path).then(res => {
-            if (res.status === 200) {
-                const arr = res.data.data.map((value, index) => {
-                    return {
-                        key: `${index}`,
-                        text: `${value}`,
-                        value: `${value.replace(/ /g, '-')}`
-                    };
-                });
-                setMethod(arr);
-            }
-        })
-    }
-
     useEffect(() => {
+        if (
+            (yearsOption.length && detailsOption.length) ||
+            (modelsOption.length && yearsOption.length) ||
+            (brandsOption.length && modelsOption.length) ||
+            brandsOption.length
+        ) {
+            timeout.current = setInterval(() => {
+                setLoading(false)
+            }, 500);
+        }
         if (!brandsOption.length) {
-            getDataOfOption(`/api/car-series/brands`, setBrandsOption);
+            setLoading(true)
+            getBrands(setBrandsOption)
         }
-        if (brand !== prevBrand) {
-            setModel('');
-            setYear('');
-            setDetail('');
-            getDataOfOption(`/api/car-series/models/${brand}`, setModelsOption);
+        if (brand !== prevBrand && brand !== '') {
+            setModelsOption([])
+            setLoading(true)
+            getModels(setModelsOption, brand)
         }
-        if (model !== prevModel) {
-            setYear('');
-            setDetail('');
-            getDataOfOption(`/api/car-series/years/${model}`, setYearsOption);
+        if (model !== prevModel && model !== '') {
+            setYearsOption([])
+            setLoading(true)
+            getYears(setYearsOption, model);
         }
-        if (year !== prevYear) {
-            setDetail('');
-            getDataOfOption(`/api/car-series/details/${model}/${year}`, setDetailsOption);
+        if (year !== prevYear && model !== '' && year !== '') {
+            setDetailsOption([])
+            setLoading(true)
+            getDetails(setDetailsOption, { model, year })
         }
-
-    }, [brand, model, year]);
-
-    const handleClickShowRatePrice = () => {
-        if (brand !== '' && model !== '' && year !== '' && detail !== '' && value !== '') {
-            dispatch(setCarSery({ brand, model, year, detail }))
-            dispatch(setInsuranceGroup(value))
-            props.setShowCardOfInsurance(true)
-            setNotError(true)
-        } else {
-            setNotError(false)
+        return () => {
+            clearInterval(timeout.current)
         }
-    }
+    });
 
     return (
         <div>
             <Form className='cr-form-comp' size='large' >
                 <Form.Group widths='2'>
-                    <Form.Select
+                    <Form.Field
+                        control={oldCustomer ? Input : Select}
+                        readOnly={oldCustomer}
                         name='brand'
                         value={brand}
                         options={brandsOption}
                         label='ยี่ห้อ'
                         fluid
-                        onChange={(e, v) => { setBrand(v.value) }}
+                        onChange={(e, v) => {
+                            dispatch(setCarSery({
+                                brand: v.value,
+                                model: '',
+                                year: '',
+                                detail: ''
+                            }));
+                        }}
                     />
 
-                    <Form.Select
+                    <Form.Field
+                        control={oldCustomer ? Input : Select}
+                        readOnly={oldCustomer}
                         name='model'
                         value={model}
                         options={modelsOption}
                         label='รุ่น'
                         fluid
                         disabled={!brand}
-                        onChange={(e, v) => { setModel(v.value) }}
+                        onChange={(e, v) => {
+                            dispatch(setCarSery({
+                                brand: brand,
+                                model: v.value,
+                                year: '',
+                                detail: ''
+                            }));
+                        }}
                     />
                 </Form.Group>
                 <Form.Group widths='2'>
-                    <Form.Select
+                    <Form.Field
+                        control={oldCustomer ? Input : Select}
+                        readOnly={oldCustomer}
                         name='yearOfMNF'
                         value={year}
                         options={yearsOption}
                         label='ปี่ที่ผลิต'
                         fluid
                         disabled={!model}
-                        onChange={(e, v) => { setYear(v.value) }}
+                        onChange={(e, v) => {
+                            dispatch(setCarSery({
+                                brand: brand,
+                                model: model,
+                                year: v.value,
+                                detail: ''
+                            }));
+                        }}
                     />
-                    <Form.Select
+                    <Form.Field
+                        control={oldCustomer ? Input : Select}
+                        readOnly={oldCustomer}
                         name='detailModel'
                         value={detail}
                         options={detailsOption}
                         label='รายละเอียดรุ่น'
                         fluid
                         disabled={!year}
-                        onChange={(e, v) => { setDetail(v.value) }}
+                        onChange={(e, v) => {
+                            dispatch(setCarSery({
+                                brand: brand,
+                                model: model,
+                                year: year,
+                                detail: v.value
+                            }));
+                        }}
                     />
 
                 </Form.Group>
                 <br />
-                <Form.Group widths='6'>
+                <Form.Group widths='5'>
                     <Form.Field>
                         <b>เลือกชนิดประกัน</b>
                     </Form.Field>
@@ -136,9 +166,8 @@ export default (props) => {
                             radio
                             label='ประเภท 2'
                             name='checkboxRadioGroup'
-                            value='2'
-                            checked={value === '2'}
-                            onChange={() => setValue('2')}
+                            checked={insuranceGroup === '2'}
+                            onChange={() => dispatch(setInsuranceGroup('2'))}
                         />
                     </Form.Field>
                     <Form.Field>
@@ -146,9 +175,8 @@ export default (props) => {
                             radio
                             label='ประเภท 2+'
                             name='checkboxRadioGroup'
-                            value='2+'
-                            checked={value === '2+'}
-                            onChange={() => setValue('2+')}
+                            checked={insuranceGroup === '2+'}
+                            onChange={() => dispatch(setInsuranceGroup('2+'))}
                         />
                     </Form.Field>
                     <Form.Field>
@@ -156,9 +184,8 @@ export default (props) => {
                             radio
                             label='ประเภท 3'
                             name='checkboxRadioGroup'
-                            value='3'
-                            checked={value === '3'}
-                            onChange={() => setValue('3')}
+                            checked={insuranceGroup === '3'}
+                            onChange={() => dispatch(setInsuranceGroup('3'))}
                         />
                     </Form.Field>
                     <Form.Field>
@@ -166,33 +193,34 @@ export default (props) => {
                             radio
                             label='ประเภท 3+'
                             name='checkboxRadioGroup'
-                            value='3+'
-                            checked={value === '3+'}
-                            onChange={() => setValue('3+')}
+                            checked={insuranceGroup === '3+'}
+                            onChange={() => dispatch(setInsuranceGroup('3+'))}
                         />
-                    </Form.Field>
-                    <Form.Field>
-                        <Button color='teal' onClick={() => { handleClickShowRatePrice() }}>สำรวจราคา</Button>
                     </Form.Field>
                 </Form.Group>
             </Form>
             <TransitionablePortal
                 open={!notError}
-                transition={{ animation:'fly down', duration: 400}}
+                transition={{ animation: 'fly down', duration: 400 }}
                 onClose={() => setNotError(true)}
             >
                 <Message
                     error
                     header
                     size='large'
-                    style={{ left: '30vw', right:'30vw', position: 'fixed', top: '15vh',
-                        textAlign: 'center', boxShadow: '0px 5px 10px #b3b3b3'}}
+                    style={{
+                        left: '30vw', right: '30vw', position: 'fixed', top: '15vh',
+                        textAlign: 'center', boxShadow: '0px 5px 10px #b3b3b3'
+                    }}
                 >
                     <Icon name='warning' />
                     กรุณากรอกข้อมูลให้ครบถ้วน
                 </Message>
             </TransitionablePortal>
+            <Dimmer active={loading} inverted page>
+                <Loader>Loading</Loader>
+            </Dimmer>
         </div>
-    )
+    );
 }
 
