@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {Button, Form, Input, Select, Divider } from 'semantic-ui-react'
+import { Button, Form, Input, Select, Divider, Grid, Statistic } from 'semantic-ui-react'
 import { DateInput } from 'semantic-ui-calendar-react'
 
 export default (props) => {
@@ -14,127 +14,78 @@ export default (props) => {
         { key: 'ni', text: 'เลขบัตรประชาชน', value: 'nin' },
         { key: 'pp', text: 'เลขหนังสือเดินทาง', value: 'ppn' },
     ]
-  
+
     const onChange = (event, { value }) => {
         setBirthDate(value)
     }
     return (
         <div className='carInfoForm'>
-            <br/>
+            <br />
             <Divider horizontal>personal infomation</Divider>
-            <br/>
+            <br />
 
             <Form className='cr-form-comp' size='large'>
-                <Form.Group>
-                    <Form.Select
-                        name='namePrefix'
-                        // onChange={(e, { name, value }) => handleChange(e, { name, value })}
-                        options={genderOptions}
-                        label='คำนำหน้าชื่อ'
-                        width='4'
-                        fluid
-                    />
-                    <Form.Input
-                        name='firstName'
-                        // onChange={(e, { name, value }) => handleChange(e, {name, value})}
-                        label='ชื่อจริง'
-                        width='6'
-                        fluid
-                    />
-                    <Form.Input
-                        name='lastName'
-                        // onChange={(e, { name, value }) => handleChange(e, {name, value})}
-                        label='นามสกุล'
-                        width='6'
-                        fluid
-                    />
-
-                </Form.Group>
-                <Form.Group >
-                    <Form.Field width='10'>
-                        <label>เลขบัตรประชาชน / เลขหนังสือเดินทาง</label>
-                        <Input
-                            type='text'
-                            action
-                            name='identNumber'
-                        >
-                            <input />
-                            <Select compact options={identNumber} defaultValue='nin' />
-                        </Input>
-                    </Form.Field>
-                    <Form.Field width='6'>
-                        <label>วันเดือนปีเกิด</label>
-                        <DateInput
-                            name="birthDate"
-                            value={birthDate}
-                            onChange={onChange}
-                            startMode='year'
-                            iconPosition="right"
-                            hideMobileKeyboard
-                            closable
-                            animation='none'
-                            clearable
-                        />
-                    </Form.Field>
-                    {/* <Form.Field width='3'>
-                        <label>รูปบัตรประชาชน</label>
-                        <Button
-                            content="รูปภาพ"
-                            labelPosition="right"
-                            icon="file"
-                            basic
-                            size='large'
-                        // onClick={() => this.fileInputRef.current.click()}
-                        />
-                        <input
-                            // ref={this.fileInputRef}
-                            name='identImg'
-                            type="file"
-                            hidden
-                        // onChange={this.fileChange}
-                        />
-                    </Form.Field> */}
-                </Form.Group>
-                <Form.Group>
-                    <Form.Field width='5'>
-                        <label>รูปบัตรประชาชน</label>
-                        <Button
-                            content="รูปภาพ"
-                            labelPosition="right"
-                            icon="file"
-                            basic
-                            size='large'
-                        // onClick={() => this.fileInputRef.current.click()}
-                        />
-                        <input
-                            // ref={this.fileInputRef}
-                            name='identImg'
-                            type="file"
-                            hidden
-                        // onChange={this.fileChange}
-                        />
-                    </Form.Field>
-                    {/* <Form.Field width='10'> */}
-                        <Form.Input
-                            name='email'
-                            // onChange={(e, { name, value }) => handleChange(e, { name, value })}
-                            label='อีเมล'
-                            width='16'
-                            fluid
-                        />
-                        <Form.Input
-                            name='phone'
-                            // onChange={(e, { name, value }) => handleChange(e, {name, value})}
-                            label='เบอร์โทรศัพท์'
-                            width='13'
-                            fluid
-                        />                        
-                    {/* </Form.Field> */}
-
-                </Form.Group>
+                <Grid columns='three' divided textAlign="center">
+                    <Grid.Column>
+                        <Statistic size='tiny'>
+                            <Statistic.Value style={{color:"#4DB6AC"}}>นาย</Statistic.Value>
+                            <Statistic.Label>คำนำหน้าชื่อ</Statistic.Label>
+                        </Statistic>
+                    </Grid.Column>
+                    <Grid.Column>
+                        <Statistic size='tiny'>
+                            <Statistic.Value style={{color:"#4DB6AC"}}>เฉลิมชนม์</Statistic.Value>
+                            <Statistic.Label>ชื่อจริง</Statistic.Label>
+                        </Statistic>
+                    </Grid.Column>
+                    <Grid.Column>
+                        <Statistic size='tiny'>
+                            <Statistic.Value style={{color:"#4DB6AC"}}>อ่อนบัว</Statistic.Value>
+                            <Statistic.Label>นามสกุล</Statistic.Label>
+                        </Statistic>
+                    </Grid.Column>
+                </Grid>
+                
+                <Grid columns='two' divided textAlign="center">
+                    <Grid.Column>
+                        <Statistic size='mini'>
+                            <Statistic.Value style={{color:"#4DB6AC"}}>1120022254862</Statistic.Value>
+                            <Statistic.Label>เลขบัตนประชาชน</Statistic.Label>
+                        </Statistic>
+                    </Grid.Column>
+                    <Grid.Column>
+                        <Statistic size='mini'>
+                            <Statistic.Value style={{color:"#4DB6AC"}}>15-05-1997</Statistic.Value>
+                            <Statistic.Label>วัน เดือน ปีเกิด</Statistic.Label>
+                        </Statistic>
+                    </Grid.Column>
+                </Grid>
+                <Grid columns='one' divided textAlign="center">
+                    <Grid.Column>
+                        <Statistic size='mini'>
+                            <Statistic.Value style={{color:"#4DB6AC"}}>admin@gmail.com</Statistic.Value>
+                            <Statistic.Label>อีเมล</Statistic.Label>
+                        </Statistic>
+                    </Grid.Column>
+                </Grid>
+                <Grid columns='two' divided textAlign="center">
+                    <Grid.Column>
+                        <Statistic size='mini'>
+                            <Statistic.Value style={{color:"#4DB6AC"}}>084 5858267</Statistic.Value>
+                            <Statistic.Label>เบอร์โทรศัพท์</Statistic.Label>
+                        </Statistic>
+                    </Grid.Column>
+                    <Grid.Column>
+                        <Statistic size='mini'>
+                            <Statistic.Value style={{color:"#4DB6AC"}}>เกมเมอร์</Statistic.Value>
+                            <Statistic.Label>อาชีพ</Statistic.Label>
+                        </Statistic>
+                    </Grid.Column>
+                </Grid>
+                
                 <br />
                 <br />
-            </Form>   
+            </Form>
         </div>
     )
 }

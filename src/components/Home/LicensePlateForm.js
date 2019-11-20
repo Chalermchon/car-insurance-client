@@ -20,6 +20,7 @@ function LicensePlateForm() {
     const province = licensePlate.province;
 
     const [haveError, setHaveError] = useState(false);
+    const [haveServerError, setHaveServerError] = useState(false);
 
     const [resData, setResData] = useState({});
     const [loading, setLoading] = useState(false);
@@ -29,14 +30,14 @@ function LicensePlateForm() {
         console.log('resData', resData);
 
         if (!resData) {
-            setHaveError(true)
+            setHaveServerError(true)
         }
         else if (Object.keys(resData).length) {
             if (Object.keys(resData.data).length) {
-                console.log(resData.data);
                 dispatch(setOldCustomer(resData.data));
+                console.log(resData.data);
+                history.push('/car-information')
             }
-            history.push('/car-information')
         }
         else if (!loading) {
             dispatch(setCarLicensePlate({
@@ -45,18 +46,39 @@ function LicensePlateForm() {
                 province: ''
             }));
         }
+
     }, [resData, loading])
 
     const nextToCarRegisterFormPage = (e) => {
         if (alphabet !== '' && number !== '' && province !== '') {
-            setLoading(true)
-            getOldCustomer(alphabet, number, province, setResData, setLoading)
+            if (alphabet.length == 1 || alphabet.length > 3) setHaveError(true)
+            else if (number.length !== 4) setHaveError(true)
+            else {
+                let count = 0
+                const str = "กขฃคฅฆงจฉชฌซศษสฎดฏตฐฑฒถทธณนบปผพภฝฟมญยรลฬฤฦวอหฮ"
+                if (alphabet.length == 2) {
+                    if (!(str.includes(alphabet.charAt(0)))) { count++; setHaveError(true) }
+                    if (!(str.includes(alphabet.charAt(1)))) { count++; setHaveError(true) }
+                }
+                if (alphabet.length == 3) {
+                    if ((isNaN(alphabet.charAt(0)))) { count++; setHaveError(true) }
+                    if (!(str.includes(alphabet.charAt(1)))) { count++; setHaveError(true) }
+                    if (!(str.includes(alphabet.charAt(2)))) { count++; setHaveError(true) }
+                }
+                if (number.length == 4) {
+                    for (let i = 0; i < number.length; i++) {
+                        if (isNaN(number.charAt(i))) { count++; setHaveError(true) }
+                    }
+                }
+                if (count == 0) {
+                    count = 0
+                    setLoading(true)
+                    getOldCustomer(alphabet, number, province, setResData, setLoading)
+                }
+            }
         }
-        else {
-            setHaveError(true)
-        }
+        else { setHaveError(true) }
     }
-
     return (
         <div className='lp'>
             <Card centered fluid link raised className='lp-computer-card'>
@@ -72,7 +94,7 @@ function LicensePlateForm() {
                                         province: province
                                     }));
                                 }}
-                                error={haveError && !alphabet}
+                                error={haveError}
                             />
                             <Form.Input fluid width="10"
                                 name='number' placeholder='1234'
@@ -83,7 +105,7 @@ function LicensePlateForm() {
                                         province: province
                                     }));
                                 }}
-                                error={haveError && !number}
+                                error={haveError}
                             />
                         </Form.Group>
                         <Form.Select fluid
@@ -96,7 +118,7 @@ function LicensePlateForm() {
                                     province: v.value
                                 }));
                             }}
-                            error={haveError && !province}
+                            error={haveError}
                         />
                     </Form>
                 </Card.Content>
@@ -111,9 +133,9 @@ function LicensePlateForm() {
             </Card>
 
             <TransitionablePortal
-                open={haveError}
+                open={haveServerError}
                 transition={{ animation: 'fly down', duration: 400 }}
-                onClose={() => { setHaveError(false) }}
+                onClose={() => { setHaveServerError(false) }}
             >
                 <Message
                     error

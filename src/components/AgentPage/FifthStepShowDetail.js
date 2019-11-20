@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import { Form, Segment, Divider } from 'semantic-ui-react'
+import { Form, Segment, Divider, Grid, Statistic } from 'semantic-ui-react'
 
 export default (props) => {
-    
+
     return (
         <div className="carInfoForm">
-            <br/>
-                <Divider horizontal>more car infomation</Divider>
-            <br/>
+            <br />
+            <Divider horizontal>more car infomation</Divider>
+            <br />
             <Segment.Group horizontal>
                 <Segment textAlign='center' color='teal'>HONDA</Segment>
                 <Segment textAlign='center' color='teal'>CIVIC</Segment>
@@ -19,27 +19,21 @@ export default (props) => {
                 <Segment textAlign='center' color='teal'>กรุุงเทพมหานคร</Segment>
             </Segment.Group>
             <Form>
-                <Form.Group>
-
-                    <Form.Input
-                        // name='postalCode'
-                        // onChange={(e, { name, value }) => handleChange(e, { name, value })}
-                        // options={genderOptions}
-                        label='หมายเลขตัวถัง'
-                        width='15'
-                        fluid
-                    />
-                    <Form.Input
-                        // name='postalCode'
-                        // onChange={(e, { name, value }) => handleChange(e, { name, value })}
-                        // options={genderOptions}
-                        label='หมายเลขเครื่อง'
-                        width='15'
-                        fluid
-                    />
-                </Form.Group>
+                <Grid columns='two' divided textAlign="center">
+                    <Grid.Column>
+                        <Statistic size='tiny'>
+                            <Statistic.Value style={{ color: "#4DB6AC" }}>1236548746468746546</Statistic.Value>
+                            <Statistic.Label>หมายเลขตัวถัง</Statistic.Label>
+                        </Statistic>
+                    </Grid.Column>
+                    <Grid.Column>
+                        <Statistic size='tiny'>
+                            <Statistic.Value style={{ color: "#4DB6AC" }}>45648468746846</Statistic.Value>
+                            <Statistic.Label>หมายเลขเครื่อง</Statistic.Label>
+                        </Statistic>
+                    </Grid.Column>
+                </Grid>
             </Form>
-            
         </div>
     )
 }

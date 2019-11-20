@@ -102,7 +102,7 @@ export default () => {
 
             <Transition animation='scale' duration={500}>
                 <Button animated color='green' floated='right' onClick={() => { handleNextButton() }}>
-                    <Button.Content visible>ยืนยัน</Button.Content>
+                    <Button.Content visible>ยืนยันการซื้อประกัน</Button.Content>
                     <Button.Content hidden>
                         <Icon name='save' />
                     </Button.Content>

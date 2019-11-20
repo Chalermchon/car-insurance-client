@@ -1,65 +1,56 @@
 import React, { useState } from 'react'
-import { Form, Divider } from 'semantic-ui-react'
+import { Form, Divider, Grid, Statistic } from 'semantic-ui-react'
 
 export default () => {
 
     return (
         <div className="carInfoForm">
-            <br/>
-                <Divider horizontal>address</Divider>
-            <br/>
+            <br />
+            <Divider horizontal>address</Divider>
+            <br />
             <Form>
-                <Form.Group>
-                    <Form.Input
-                        name='houseNumber'
-                        // onChange={(e, { name, value }) => handleChange(e, { name, value })}
-                        label='บ้านเลขที่'
-                        width='4'
-                        fluid
-                    />
-                    <Form.Input
-                        name='tambon'
-                        // onChange={(e, { name, value }) => handleChange(e, { name, value })}
-                        label='แขวง / ตำบล'
-                        width='6'
-                        fluid
-                    />
-                    <Form.Input
-                        name='road'
-                        // onChange={(e, { name, value }) => handleChange(e, { name, value })}
-                        label='ถนน'
-                        width='6'
-                        fluid
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Select
-                        name='changwat'
-                        // onChange={(e, { name, value }) => handleChange(e, { name, value })}
-                        // options={genderOptions}
-                        label='จังหวัด'
-                        width='6'
-                        fluid
-                    />
-                    <Form.Select
-                        name='amphoe'
-                        // onChange={(e, { name, value }) => handleChange(e, { name, value })}
-                        // options={genderOptions}
-                        label='อำเภอ'
-                        width='5'
-                        fluid
-                    />
-                    <Form.Input
-                        name='postalCode'
-                        // onChange={(e, { name, value }) => handleChange(e, { name, value })}
-                        // options={genderOptions}
-                        label='รหัสไปรษณีย์'
-                        width='5'
-                        fluid
-                    />
-                </Form.Group>
+                <Grid columns='three' divided textAlign="center">
+                    <Grid.Column>
+                        <Statistic size='tiny'>
+                            <Statistic.Value style={{ color: "#4DB6AC" }}>222 / 96</Statistic.Value>
+                            <Statistic.Label>บ้านเลขที่</Statistic.Label>
+                        </Statistic>
+                    </Grid.Column>
+                    <Grid.Column>
+                        <Statistic size='tiny'>
+                            <Statistic.Value style={{ color: "#4DB6AC" }}>บางใหญ่</Statistic.Value>
+                            <Statistic.Label>แขวง / ตำบล</Statistic.Label>
+                        </Statistic>
+                    </Grid.Column>
+                    <Grid.Column>
+                        <Statistic size='tiny'>
+                            <Statistic.Value style={{ color: "#4DB6AC" }}>บางคูลัด</Statistic.Value>
+                            <Statistic.Label>ถนน</Statistic.Label>
+                        </Statistic>
+                    </Grid.Column>
+                </Grid>
+                <Grid columns='three' divided textAlign="center">
+                    <Grid.Column>
+                        <Statistic size='tiny'>
+                            <Statistic.Value style={{ color: "#4DB6AC" }}>บางใหญ่</Statistic.Value>
+                            <Statistic.Label>เขต / อำเภอ</Statistic.Label>
+                        </Statistic>
+                    </Grid.Column>
+                    <Grid.Column>
+                        <Statistic size='tiny'>
+                            <Statistic.Value style={{ color: "#4DB6AC" }}>นนทบุรี</Statistic.Value>
+                            <Statistic.Label>จังหวัด</Statistic.Label>
+                        </Statistic>
+                    </Grid.Column>
+                    <Grid.Column>
+                        <Statistic size='tiny'>
+                            <Statistic.Value style={{ color: "#4DB6AC" }}>11110</Statistic.Value>
+                            <Statistic.Label>รหัสไปรษณีย์</Statistic.Label>
+                        </Statistic>
+                    </Grid.Column>
+                </Grid>
             </Form>
-            
+
         </div>
     )
 }

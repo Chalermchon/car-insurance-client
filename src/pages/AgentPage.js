@@ -9,27 +9,27 @@ import FourStepShowDetail from '../components/AgentPage/FourStepShowDetail'
 import FifthStepShowDetail from '../components/AgentPage/FifthStepShowDetail'
 
 export default function AgentPage() {
-    let list =
+    let recentCustomerCard =
         <Grid.Row>
             <Card color='green'>
                 <Card.Content>
                     <Card.Header>
                         โจกี้ อิอิ
                     </Card.Header>
-                    <Card.Description>
+                    <br/>
+                    <Card.Header style={{color:"gray"}}>
                         กด 2547
-                    </Card.Description>
+                    </Card.Header>
                 </Card.Content>
                 <Card.Content extra>
                     <div className='ui three buttons'>
                         <Modal trigger={<Button basic color='yellow'>ดูรายลเอียด</Button>}>
-                            <Modal.Header>Profile Picture</Modal.Header>
+                            <Modal.Header>รายละเอียด</Modal.Header>
                             <Modal.Content image scrolling>
                                 <Modal.Description>
-                                    <Header>Modal Header</Header>
                                     <FirstStepShowDetail />
                                     <SecondStepShowDetail />
-                                    <ThirdStepShowDetail />
+                                    {/* <ThirdStepShowDetail /> */}
                                     <FourStepShowDetail />
                                     <FifthStepShowDetail />
                                 </Modal.Description>
@@ -56,9 +56,9 @@ export default function AgentPage() {
     let recentCustomer =
         <div style={{ margin: "auto", display: "block", margin: "30px", textAlign: "center" }}>
             <Grid centered columns={1}>
-                {list}
-                {list}
-                {list}
+                {recentCustomerCard}
+                {recentCustomerCard}
+                {recentCustomerCard}
             </Grid>
         </div>
 
@@ -66,18 +66,18 @@ export default function AgentPage() {
 
     return (
         <div style={{ paddingRight: '5%', paddingLeft: '5%' }}>
-            <Grid divided='vertically' celled>
+            <Grid divided='vertically'>
                 <Grid.Row columns={2} textAlign="center">
                     <Grid.Column>
-                        <Label color="olive" size="big">
-                            คำขอเอาประกันล่าสุด
-                        </Label>
+                        {/* <Label color="olive" size="big"> */}
+                            <h1>คำขอเอาประกันล่าสุด</h1>
+                        {/* </Label> */}
                         {recentCustomer}
                     </Grid.Column>
                     <Grid.Column>
-                        <Label color="olive" size="big">
-                            ลุกค้าทั้งหมด
-                        </Label>
+                        {/* <Label color="olive" size="big"> */}
+                            <h1>ลุกค้าทั้งหมด</h1>
+                        {/* </Label> */}
                         {/* {recentCustomer} */}
                     </Grid.Column>
                 </Grid.Row>
