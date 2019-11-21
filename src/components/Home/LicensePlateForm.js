@@ -148,7 +148,7 @@ function LicensePlateForm() {
                 >
                     <Message.Header>
                         <Icon name='warning' />
-                        "เกิดข้อผิดพลาดบางอย่าง โปรดลองใหม่อีกครั้ง"
+                        เกิดข้อผิดพลาดบางอย่าง โปรดลองใหม่อีกครั้ง
                     </Message.Header>
                 </Message>
             </TransitionablePortal>
