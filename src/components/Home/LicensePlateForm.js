@@ -36,8 +36,8 @@ function LicensePlateForm() {
             if (Object.keys(resData.data).length) {
                 dispatch(setOldCustomer(resData.data));
                 console.log(resData.data);
-                history.push('/car-information')
             }
+            history.push('/car-information')
         }
         else if (!loading) {
             dispatch(setCarLicensePlate({
@@ -86,7 +86,7 @@ function LicensePlateForm() {
                     <Form size="massive" unstackable >
                         <Form.Group >
                             <Form.Input fluid width="6"
-                                name='alphabet' placeholder='กด'
+                                placeholder='กด'
                                 onChange={(e) => {
                                     dispatch(setCarLicensePlate({
                                         alphabet: e.target.value,
@@ -97,7 +97,7 @@ function LicensePlateForm() {
                                 error={haveError}
                             />
                             <Form.Input fluid width="10"
-                                name='number' placeholder='1234'
+                                placeholder='1234'
                                 onChange={(e) => {
                                     dispatch(setCarLicensePlate({
                                         alphabet: alphabet,

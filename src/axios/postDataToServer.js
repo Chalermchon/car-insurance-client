@@ -51,6 +51,12 @@ export default (customerInformation, carInformation, insuranceRequest, setRespon
                 setResponse({ success: true, data: res.data.data });
 
             }).catch((err) => {
+                axios.delete(`/api/car-informations/${res.data.data.id}`).then(res => {
+                    console.log(res.data);
+                    axios.delete(`/api/customers/${res.data.data.customer_id}`).then(res => {
+                        console.log(res.data);
+                    })
+                })
 
                 let resErr = err.response;
                 if (resErr.status === 400) {
@@ -62,6 +68,9 @@ export default (customerInformation, carInformation, insuranceRequest, setRespon
                 }
             })
         }).catch((err) => {
+            axios.delete(`/api/customers/${res.data.data.id}`).then(res => {
+                console.log(res.data);
+            })
 
             let resErr = err.response;
             if (resErr.status === 400) {

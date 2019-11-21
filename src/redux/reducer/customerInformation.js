@@ -19,6 +19,7 @@ const customerInformationReducer = (state = initState, action) => {
     switch (action.type) {
         case 'SET_CUSTOMER_INFORMATION':
             return {
+                ...state,
                 namePrefix: action.payload.namePrefix,
                 firstName: action.payload.firstName,
                 lastName: action.payload.lastName,

@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { Form, Dimmer, Loader, Message, TransitionablePortal, Button, Segment, Icon, Transition, Divider } from 'semantic-ui-react'
 import { setCarIdentNumber, setCarVinNumber, setCarEngNumber } from '../../redux/action';
 import postDataToServer from '../../axios/postDataToServer';
+import putDataToServer from '../../axios/putDataToServer';
 
 export default () => {
 
@@ -35,7 +36,15 @@ export default () => {
     const handleNextButton = () => {
         if (vinNumber !== '' && engNumber !== '') {
             setLoading(true)
-            postDataToServer(customerInformation, carInformation, insuranceRequest, setResponse)
+            if (oldCustomer) {
+                console.log('put');
+                putDataToServer(customerInformation, carInformation, insuranceRequest, setResponse)
+                
+            }
+            else {
+                console.log('post');
+                postDataToServer(customerInformation, carInformation, insuranceRequest, setResponse)
+            }
         } else {
             setHaveError(true);
         }
@@ -115,7 +124,7 @@ export default () => {
                     if (haveError) {
                         setHaveError(false)
                         setResponse({})
-                    }else{
+                    } else {
                         history.push('/')
                     }
                 }}

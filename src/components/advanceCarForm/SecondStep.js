@@ -22,6 +22,7 @@ export default (props) => {
     const email = customerInformation.email
     const phone = customerInformation.phone
 
+    const [haveIdentNumberError, setHaveIdentNumberError] = useState(false)
     const [haveImgError, setHaveImgError] = useState(false)
     const [haveError, setHaveError] = useState(false)
 
@@ -32,10 +33,6 @@ export default (props) => {
         { key: '0', text: 'นาย', value: 'นาย' },
         { key: '1', text: 'นาง', value: 'นาง' },
         { key: '2', text: 'นางสาว', value: 'นางสาว' },
-    ]
-    const identNumberOption = [
-        { key: 'ni', text: 'เลขบัตรประชาชน', value: 'nin' },
-        { key: 'pp', text: 'เลขหนังสือเดินทาง', value: 'ppn' },
     ]
 
     const fileChange = e => {
@@ -63,16 +60,20 @@ export default (props) => {
         if ((namePrefix !== '' && firstName !== '' && lastName !== '' &&
             identNumber !== '' && birthDate !== '' && identImg &&
             email !== '' && phone !== '') || (oldCustomer && (firstName !== '' &&
-            lastName !== '' && email !== '' && phone !== '' ))
+            lastName !== '' && email !== '' && phone !== ''))
         ) {
-            console.log(namePrefix + ' ' + firstName + ' ' + lastName);
-            console.log(identNumber);
-            console.log(birthDate);
-            console.log(email + ' ' + phone);
-            console.log(identImg)
+            if (identNumber.length !== 13) {
+                setHaveIdentNumberError(true)
+            } else {
+                console.log(namePrefix + ' ' + firstName + ' ' + lastName);
+                console.log(identNumber);
+                console.log(birthDate);
+                console.log(email + ' ' + phone);
+                console.log(identImg)
 
-            props.setIsShowStepThree()
-            setIsHindNextButton(false)
+                props.setIsShowStepThree()
+                setIsHindNextButton(false)
+            }
         } else {
             setHaveError(true);
         }
@@ -182,8 +183,13 @@ export default (props) => {
                     <Form.Input
                         readOnly={oldCustomer}
                         value={identNumber}
-                        name='identNumber'
                         onChange={(e, { value }) => {
+                            if (value.length > 13) {
+                                setHaveIdentNumberError(true)
+                            }
+                            if (! "1234567890".includes(value.charAt(value.length - 1))) {
+                                setHaveIdentNumberError(true)
+                            }
                             dispatch(setCustomerInformation({
                                 namePrefix,
                                 firstName,
@@ -224,7 +230,7 @@ export default (props) => {
                     </Form.Field>
 
                 </Form.Group>
-                <Form.Group style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+                <Form.Group style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
                     <Form.Field width='6'>
                         <Form.Input
                             name='email'
@@ -318,6 +324,39 @@ export default (props) => {
                     <Message.Header>
                         <Icon name='warning' />
                         กรุณากรอกข้อมูลให้ครบถ้วน
+                    </Message.Header>
+
+                </Message>
+            </TransitionablePortal>
+            <TransitionablePortal
+                open={haveIdentNumberError}
+                transition={{ animation: 'fly down', duration: 400 }}
+                onClose={() => {
+                    setHaveIdentNumberError(false)
+                    dispatch(setCustomerInformation({
+                        namePrefix,
+                        firstName,
+                        lastName,
+                        identNumber: '',
+                        birthDate,
+                        identImg,
+                        email,
+                        phone
+                    }))
+                }}
+            >
+                <Message
+                    error
+                    header
+                    size='large'
+                    style={{
+                        left: '30vw', right: '30vw', position: 'fixed', top: '15vh',
+                        textAlign: 'center', boxShadow: '0px 5px 10px #b3b3b3'
+                    }}
+                >
+                    <Message.Header>
+                        <Icon name='warning' />
+                        เลขบัตรประชาชนของคุณไม่ถูกต้อง
                     </Message.Header>
 
                 </Message>

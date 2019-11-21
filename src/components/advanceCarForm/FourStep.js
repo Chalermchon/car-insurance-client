@@ -18,13 +18,16 @@ export default (props) => {
     const postalCode = customerInformation.postalCode
 
     const [haveError, setHaveError] = useState(false)
+    const [haveInvalidError, setHaveInvalidError] = useState(false)
 
     const dispatch = useDispatch();
 
     const handleNextButton = () => {
         if (houseNumber !== '' && tambon !== '' && amphoe !== '' &&
             changwat !== '' && postalCode !== '') {
-            
+            for (const char in houseNumber) {
+
+            }
             props.setIsShowStepFive()
             setIsHindNextButton(false)
         } else {
@@ -45,13 +48,19 @@ export default (props) => {
                     <Form.Input
                         value={houseNumber}
                         name='houseNumber'
-                        onChange={(e, { value }) => dispatch(setAddressCustomer({
-                            houseNumber: value,
-                            tambon,
-                            changwat,
-                            amphoe,
-                            postalCode
-                        }))}
+                        onChange={(e, { value }) => {
+                            if (! "1234567890/".includes(value.charAt(value.length - 1))) {
+                                setHaveInvalidError(true)
+                                value = value.slice(0, value.length-1)
+                            }
+                            dispatch(setAddressCustomer({
+                                houseNumber: value,
+                                tambon,
+                                changwat,
+                                amphoe,
+                                postalCode
+                            }))
+                        }}
                         label='บ้านเลขที่'
                         width='4'
                         fluid
@@ -59,13 +68,19 @@ export default (props) => {
                     <Form.Input
                         value={tambon}
                         name='tambon'
-                        onChange={(e, { value }) => dispatch(setAddressCustomer({
-                            houseNumber,
-                            tambon: value,
-                            changwat,
-                            amphoe,
-                            postalCode
-                        }))}
+                        onChange={(e, { value }) => {
+                            if ("`~!@#$%^&*()_+=-><?\"'.;:,{}[]".includes(value.charAt(value.length - 1))) {
+                                setHaveInvalidError(true)
+                                value = value.slice(0, value.length-1)
+                            }
+                            dispatch(setAddressCustomer({
+                                houseNumber,
+                                tambon: value,
+                                changwat,
+                                amphoe,
+                                postalCode
+                            }))
+                        }}
                         label='แขวง / ตำบล'
                         width='6'
                         fluid
@@ -73,13 +88,19 @@ export default (props) => {
                     <Form.Input
                         value={amphoe}
                         name='amphoe'
-                        onChange={(e, { value }) => dispatch(setAddressCustomer({
-                            houseNumber,
-                            tambon,
-                            changwat,
-                            amphoe: value,
-                            postalCode
-                        }))}
+                        onChange={(e, { value }) =>{
+                            if ("`~!@#$%^&*()_+=-><?\"'.;:,{}[]".includes(value.charAt(value.length - 1))) {
+                                setHaveInvalidError(true)
+                                value = value.slice(0, value.length-1)
+                            }
+                            dispatch(setAddressCustomer({
+                                houseNumber,
+                                tambon,
+                                changwat,
+                                amphoe: value,
+                                postalCode
+                            }))
+                        }}
                         label='เขต / อำเภอ'
                         width='6'
                         fluid
@@ -105,13 +126,19 @@ export default (props) => {
                     <Form.Input
                         value={postalCode}
                         name='postalCode'
-                        onChange={(e, { value }) => dispatch(setAddressCustomer({
-                            houseNumber,
-                            tambon,
-                            changwat,
-                            amphoe,
-                            postalCode: value
-                        }))}
+                        onChange={(e, { value }) => {
+                            if (!"0123456789".includes(value.charAt(value.length - 1)) || value.length > 5) {
+                                setHaveInvalidError(true)
+                                value = value.slice(0, value.length-1)
+                            }
+                            dispatch(setAddressCustomer({
+                                houseNumber,
+                                tambon,
+                                changwat,
+                                amphoe,
+                                postalCode: value
+                            }))
+                        }}
                         label='รหัสไปรษณีย์'
                         width='4'
                         fluid
@@ -143,6 +170,27 @@ export default (props) => {
                     <Message.Header>
                         <Icon name='warning' />
                         กรุณากรอกข้อมูลให้ครบถ้วน
+                    </Message.Header>
+
+                </Message>
+            </TransitionablePortal>
+            <TransitionablePortal
+                open={haveInvalidError}
+                transition={{ animation: 'fly down', duration: 400 }}
+                onClose={() => setHaveInvalidError(false)}
+            >
+                <Message
+                    error
+                    header
+                    size='large'
+                    style={{
+                        left: '30vw', right: '30vw', position: 'fixed', top: '15vh',
+                        textAlign: 'center', boxShadow: '0px 5px 10px #b3b3b3'
+                    }}
+                >
+                    <Message.Header>
+                        <Icon name='warning' />
+                        ข้อมูลของคุณไม่ถูกต้อง
                     </Message.Header>
 
                 </Message>
