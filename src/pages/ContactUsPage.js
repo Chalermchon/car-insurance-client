@@ -11,12 +11,12 @@ export default function ContactUsPage() {
                     </h2>
                 </Segment>
 
-                <h3 style={{ margin: "auto", display: "block" }}>
+                <h4 style={{ margin: "auto", display: "block" }}>
                     <br /><Icon name='home' size='large' /><br /><br /> 43 ซ.เพชรเกษม 48 บ้านด้วน ภาษีเจริญ กรุงเทพฯ 10160 <br /><br /><br />
                     <Icon name='time' size='large' /><br /><br /> 7.00 - 17.00<br />วันจันทร์ - วันศุกร์ <br /><br /><br />
                     <Icon name='mail' size='large' /><br /><br /> krongkaewj@asiainsurance.co.th   <br /><br /><br /> 
                     <Icon name='phone' size='large' /><br /><br />02-869-7420  ,  089-5024779   <br /><br />
-                </h3>
+                </h4>
             </Segment>
         </div>
 

@@ -20,12 +20,15 @@ function MenuButton() {
                         <h3>Asia insurance</h3>
                     </Menu.Item>
                     <Menu.Menu position='right'>
-                        <Dropdown item simple text='menu'  >
+                        <Menu.Item as='a' header onClick={goToContactUsPage}>
+                            <h4>Contact us</h4>
+                        </Menu.Item>
+                        {/* <Dropdown item simple text='menu'  >
                             <Dropdown.Menu >
                                 <Dropdown.Item text='For agent' onClick={goToForAgentPage}/>
                                 <Dropdown.Item text='Contact us' onClick={goToContactUsPage}/>
                             </Dropdown.Menu>
-                        </Dropdown>
+                        </Dropdown> */}
                     </Menu.Menu>
                 </Container>
             </Menu>
